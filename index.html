@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>폰체크</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <main class="phone-shell" aria-label="폰체크 모바일 프로토타입">
+    <section class="onboarding" id="onboarding">
+      <div class="brand-mark">폰체크</div>
+      <div class="onboarding-copy">
+        <h1>핸드폰 사러 가기 전, 내 기준부터 정리해볼까요?</h1>
+        <p>복잡한 조건을 하나씩 확인하고, 매장에서 물어볼 질문을 준비합니다.</p>
+      </div>
+      <button class="primary-button" id="startButton" type="button">시작하기</button>
+    </section>
+
+    <section class="app-screen is-hidden" id="appScreen">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">폰체크</p>
+          <h1 id="screenTitle">내 기준</h1>
+        </div>
+        <p class="header-note" id="headerNote">1 / 5</p>
+      </header>
+
+      <div class="tab-view is-active" id="tab-standards" data-title="내 기준" data-note="1 / 5">
+        <p class="screen-lead">매장에 가기 전, 내 조건을 다섯 단계로 정리합니다.</p>
+
+        <div class="step-dots" aria-label="내 기준 진행 단계">
+          <span class="is-active"></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <section class="step-page is-active" data-step="0">
+          <div class="content-panel is-open">
+            <p class="step-label">예산 설정</p>
+            <h2>24개월 기준으로 한 달에 얼마까지 부담할 수 있나요?</h2>
+            <p class="panel-note">월 납부 가능 금액은 기기값, 요금제, 보험/부가서비스 비용을 모두 포함한 기준입니다.</p>
+            <div class="choice-list" data-choice-group="budget">
+              <button type="button" class="choice-button" data-value="3~5만 원">3~5만 원</button>
+              <button type="button" class="choice-button" data-value="6~8만 원">6~8만 원</button>
+              <button type="button" class="choice-button" data-value="9~10만 원">9~10만 원</button>
+              <button type="button" class="choice-button" data-value="11만 원 이상">11만 원 이상</button>
+              <button type="button" class="choice-button" data-value="직접 입력">직접 입력</button>
+            </div>
+            <label class="field-group is-hidden" id="customBudgetField">
+              <span>직접 입력 금액</span>
+              <div class="input-with-unit">
+                <input id="customBudgetInput" type="number" min="0" inputmode="numeric" placeholder="예: 85000" />
+                <span>원 이하</span>
+              </div>
+            </label>
+            <div class="budget-total-box" id="budgetTotalBox">
+              <span>최대 총 납부액(24개월) </span>
+              <strong id="budgetTotalPreview">선택하면 자동으로 계산됩니다</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="step-page" data-step="1">
+          <div class="content-panel is-open">
+            <p class="step-label">원하는 기종과 용량</p>
+
+            <div class="choice-block">
+              <label class="field-group text-field">
+
+                <textarea id="modelTextInput" rows="4"
+                  placeholder="예: 아이폰 16 Pro, 갤럭시 S25, 카메라 좋은 모델, 가벼운 모델"></textarea>
+              </label>
+            </div>
+            <div class="choice-block">
+              <h3>통신사 선택</h3>
+              <div class="choice-list compact-list" data-choice-group="carriers">
+                <button type="button" class="choice-button" data-value="SKT">SKT</button>
+                <button type="button" class="choice-button" data-value="KT">KT</button>
+                <button type="button" class="choice-button" data-value="LG U+">LG U+</button>
+                <button type="button" class="choice-button" data-value="알뜰폰">알뜰폰</button>
+                <button type="button" class="choice-button" data-value="통신사 상관없음">통신사 상관없음</button>
+              </div>
+            </div>
+            <div class="choice-block">
+              <h3>원하는 용량</h3>
+              <div class="choice-list compact-list" data-choice-group="storage">
+                <button type="button" class="choice-button" data-value="32GB">32GB</button>
+                <button type="button" class="choice-button" data-value="64GB">64GB</button>
+                <button type="button" class="choice-button" data-value="128GB">128GB</button>
+                <button type="button" class="choice-button" data-value="256GB">256GB</button>
+                <button type="button" class="choice-button" data-value="512GB">512GB</button>
+                <button type="button" class="choice-button" data-value="1TB">1TB</button>
+                <button type="button" class="choice-button" data-value="용량 상관없음">용량 상관없음</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step-page" data-step="2">
+          <div class="content-panel is-open">
+            <p class="step-label">사용 패턴</p>
+            <h2>주로 어떻게 사용하나요?</h2>
+            <div class="choice-list" data-choice-group="pattern">
+              <button type="button" class="choice-button" data-value="연락과 메신저 위주">연락과 메신저 위주</button>
+              <button type="button" class="choice-button" data-value="사진과 영상 촬영이 많음">사진과 영상 촬영이 많음</button>
+              <button type="button" class="choice-button" data-value="게임을 자주 함">게임을 자주 함</button>
+              <button type="button" class="choice-button" data-value="잘 모르겠음">잘 모르겠음</button>
+            </div>
+            <div class="choice-block">
+              <h3>월 데이터 평균 사용량</h3>
+              <div class="choice-list compact-list" data-choice-group="dataUsage">
+                <button type="button" class="choice-button" data-value="5GB 이하">5GB 이하</button>
+                <button type="button" class="choice-button" data-value="10GB 이하">10GB 이하</button>
+                <button type="button" class="choice-button" data-value="30GB 이하">30GB 이하</button>
+                <button type="button" class="choice-button" data-value="100GB 이하">100GB 이하</button>
+                <button type="button" class="choice-button" data-value="무제한 필요">무제한 필요</button>
+                <button type="button" class="choice-button" data-value="잘 모르겠음">잘 모르겠음</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step-page" data-step="3">
+          <div class="content-panel is-open">
+            <p class="step-label">피하고 싶은 조건</p>
+            <h2>이런 조건은 피하고 싶나요?</h2>
+            <div class="choice-list" data-choice-group="avoid">
+              <button type="button" class="choice-button" data-value="비싼 요금제를 오래 유지하는 조건">비싼 요금제를 오래 유지하는 조건</button>
+              <button type="button" class="choice-button" data-value="부가서비스 가입 조건">부가서비스 가입 조건</button>
+              <button type="button" class="choice-button" data-value="오늘 바로 계약해야 하는 조건">오늘 바로 계약해야 하는 조건</button>
+              <button type="button" class="choice-button" data-value="설명이 복잡한 할부 조건">설명이 복잡한 할부 조건</button>
+              <button type="button" class="choice-button" data-value="잘 모르겠음">잘 모르겠음</button>
+            </div>
+            <div class="choice-block">
+              <h3>제휴카드 할인 조건</h3>
+              <div class="choice-list" data-choice-group="cardDiscount">
+                <button type="button" class="choice-button" data-value="제휴카드 없이 안내받고 싶음">제휴카드 없이 안내받고 싶음</button>
+                <button type="button" class="choice-button" data-value="월 실적 조건을 확인하면 가능">월 실적 조건을 확인하면 가능</button>
+                <button type="button" class="choice-button" data-value="카드 발급은 원하지 않음">카드 발급은 원하지 않음</button>
+                <button type="button" class="choice-button" data-value="잘 모르겠음">잘 모르겠음</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step-page" data-step="4">
+          <div class="content-panel is-open">
+            <p class="step-label">총정리</p>
+            <h2>00님의 구매 조건</h2>
+            <article class="request-card" aria-label="조건 카드">
+              <div class="request-section">
+                <span>원하는 기종</span>
+                <div class="tag-list" id="summaryModels"></div>
+              </div>
+
+              <div class="request-section">
+                <span>월 납부 가능 금액</span>
+                <strong id="summaryBudget">아직 정하지 않았어요</strong>
+                <p>기기값, 요금제, 보험/부가서비스 비용을 모두 포함한 기준입니다.</p>
+              </div>
+
+              <div class="request-section">
+                <span>최대 총 납부액(24개월)</span>
+                <strong id="summaryBudgetTotal">아직 정하지 않았어요</strong>
+              </div>
+
+              <div class="request-section">
+                <span>통신사</span>
+                <div class="tag-list" id="summaryCarriers"></div>
+              </div>
+
+              <div class="request-section">
+                <span>원하는 용량</span>
+                <div class="tag-list" id="summaryStorage"></div>
+              </div>
+
+              <div class="request-section">
+                <span>사용 패턴</span>
+                <strong id="summaryPattern">아직 정하지 않았어요</strong>
+              </div>
+
+              <div class="request-section">
+                <span>월 데이터 평균 사용량</span>
+                <strong id="summaryDataUsage">아직 정하지 않았어요</strong>
+              </div>
+
+              <div class="request-section">
+                <span>제휴카드 할인 조건</span>
+                <strong id="summaryCardDiscount">아직 정하지 않았어요</strong>
+              </div>
+
+              <div class="request-section">
+                <span>피하고 싶은 조건</span>
+                <div class="tag-list" id="summaryAvoid"></div>
+              </div>
+
+              <div class="request-footer">
+                <strong>오늘 바로 계약하지 않아도 됩니다.</strong>
+                <p>조건이 맞는 업체와만 상담을 이어가면 됩니다.</p>
+              </div>
+            </article>
+            <button class="primary-button compact" id="goConsultButton" type="button">저장하기</button>
+          </div>
+        </section>
+
+        <div class="step-actions">
+          <button class="secondary-button" id="prevStepButton" type="button">이전</button>
+          <button class="primary-button" id="nextStepButton" type="button">다음</button>
+        </div>
+
+        <section class="save-complete is-hidden" id="saveCompleteScreen">
+          <div class="content-panel is-open">
+            <p class="step-label">저장 완료</p>
+            <h2>저장되었습니다!</h2>
+            <p class="panel-note">이제 조건에 맞는 매장을 비교해볼까요?</p>
+            <button class="primary-button compact" id="goConsultNextButton" type="button">다음</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="tab-view" id="tab-consult" data-title="상담 중" data-note="매장 확인">
+
+
+        <div class="action-grid two-panels" aria-label="상담 중 기능">
+          <button class="action-card is-active" type="button" data-panel-target="checklistPanel">
+            <span>체크리스트</span>
+            <small>확인한 항목 저장</small>
+          </button>
+          <button class="action-card" type="button" data-panel-target="cautionPanel">
+            <span>주의할 항목</span>
+            <small>조건 확인 문장</small>
+          </button>
+        </div>
+
+        <section class="content-panel is-open" id="checklistPanel">
+          <h2>상담 체크리스트</h2>
+          <div class="check-list" id="checkList"></div>
+        </section>
+
+        <section class="content-panel" id="cautionPanel">
+          <h2>주의할 항목</h2>
+          <div class="notice-list">
+            <p>“공짜폰”이라는 말은 실제 할부 원금과 요금제 조건을 함께 확인해야 합니다.</p>
+            <p>“몇 달만 유지하면 된다”는 조건은 정확한 유지 기간과 변경 가능 시점을 확인해야 합니다.</p>
+            <p>“오늘만 가능한 조건”은 즉시 계약 압박일 수 있으므로 비교 시간이 필요합니다.</p>
+            <p>부가서비스는 필수인지 선택인지 반드시 확인해야 합니다.</p>
+            <p>30개월이나 36개월이 아닌 "24개월 기준으로" 납부액을 확인하세요.</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="tab-view" id="tab-stores" data-title="매장 찾기" data-note="조건 비교">
+        <p class="screen-lead">내 조건 카드와 매장 제안을 비교합니다.</p>
+        <div class="store-list" id="storeList"></div>
+      </div>
+
+      <nav class="bottom-tabs" aria-label="주요 메뉴">
+        <button class="tab-button is-active" type="button" data-tab-target="tab-standards">
+          <span>내 기준</span>
+        </button>
+        <button class="tab-button" type="button" data-tab-target="tab-stores">
+          <span>매장 찾기</span>
+        </button>
+        <button class="tab-button" type="button" data-tab-target="tab-consult">
+          <span>상담 중</span>
+        </button>
+      </nav>
+    </section>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>
