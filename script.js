@@ -2,6 +2,7 @@ const storageKey = "phonecheckState";
 const checklistKey = "phonecheckChecklist";
 const lastStep = 4;
 const totalSteps = 5;
+const fixedModelName = "갤럭시25 울트라";
 
 const checklistItems = [
   "24개월 총비용을 확인했나요?",
@@ -12,63 +13,390 @@ const checklistItems = [
   "오늘 바로 계약하지 않아도 된다는 점을 기억했나요?",
 ];
 
+const carrierOptions = ["SKT", "KT", "알뜰폰", "상관없음"];
+
 const stores = [
   {
-    name: "한빛모바일 강남점",
-    area: "서울 강남",
-    monthlyMax: 80000,
+    category: "직영점",
+    name: "SK텔레콤 가능대리점 민락2지구직영점",
+    mapUrl: "https://naver.me/Gsj6ODGZ",
+    carriers: ["SKT"],
+    storage: ["256GB", "512GB", "1TB"],
+    data: ["5GB 이하", "10GB 이하", "30GB 이하", "100GB 이하", "무제한 필요"],
+    planHold: "원하는 요금제 선택 가능",
+    extraService: "부가서비스 가입 의무 없음",
+    contractMonths: 24,
+    offers: [
+      {
+        carrier: "SKT",
+        label: "기기변경",
+        monthlyMax: 89000,
+        devicePrice: 1350000,
+        totalPrice: 3486000,
+      },
+    ],
+  },
+  {
+    category: "직영점",
+    name: "kt직영매장 의정부로데오직영점",
+    mapUrl: "https://naver.me/Gn0FmU7S",
+    carriers: ["KT"],
+    storage: ["256GB"],
+    data: ["5GB 이하", "10GB 이하", "30GB 이하", "100GB 이하", "무제한 필요"],
+    planHold: "원하는 요금제 선택 가능",
+    extraService: "부가서비스 가입 의무 없음",
+    contractMonths: 24,
+    offers: [
+      {
+        carrier: "KT",
+        label: "기기변경",
+        monthlyMax: 80000,
+        devicePrice: 1400000,
+        totalPrice: 3320000,
+      },
+    ],
+  },
+  {
+    category: "성지",
+    name: "휴대폰성지 옆커폰 의정부호원점",
+    mapUrl: "https://naver.me/5PVTBSYn",
+    carriers: ["KT"],
+    storage: ["256GB"],
+    data: ["무제한 필요"],
+    planHold: "10만9000원 요금제 6개월 사용 후 5만원까지 하향 가능",
+    extraService: "부가서비스 4개월 사용 의무",
+    contractMonths: 24,
+    offers: [
+      {
+        carrier: "KT",
+        label: "기기변경",
+        monthlyMax: 109000,
+        devicePrice: 490000,
+        totalPrice: 2044000,
+      },
+    ],
+  },
+  {
+    category: "성지",
+    name: "의정부 휴대폰 성지",
+    mapUrl: "https://naver.me/I5yhlxTs",
+    storage: ["256GB"],
     carriers: ["SKT", "KT"],
-    storage: ["128GB", "256GB", "512GB"],
-    data: ["30GB 이하", "100GB 이하", "무제한 필요"],
-    cardPolicy: "제휴카드 없이 안내 가능",
-    supportsNoCard: true,
-    planHold: "고가 요금제 3개월 유지 조건",
-    extraService: "부가서비스 선택",
+    data: ["무제한 필요"],
+    planHold: "11만원 요금제 6개월 사용 후 5만5000원 이상 요금제로 변경 가능",
+    extraService: "부가서비스 2개월 사용 의무",
     contractMonths: 24,
-    contact: "견적서 문자 발송 가능",
+    offers: [
+      {
+        carrier: "SKT",
+        label: "번호이동",
+        monthlyMax: 110000,
+        devicePrice: 580000,
+        totalPrice: 2230000,
+      },
+      {
+        carrier: "KT",
+        label: "기기변경",
+        monthlyMax: 110000,
+        devicePrice: 690000,
+        totalPrice: 2340000,
+      },
+    ],
   },
   {
-    name: "청량폰 마포점",
-    area: "서울 마포",
-    monthlyMax: 50000,
-    carriers: ["알뜰폰", "KT"],
-    storage: ["64GB", "128GB", "256GB"],
-    data: ["5GB 이하", "10GB 이하", "30GB 이하"],
-    cardPolicy: "제휴카드 없이 안내 가능",
-    supportsNoCard: true,
-    planHold: "요금제 자유 선택",
-    extraService: "부가서비스 없음",
+    category: "성지",
+    name: "휴대폰 성지 싸당 의정부점",
+    mapUrl: "https://naver.me/x9zGAU3h",
+    carriers: ["SKT", "KT"],
+    storage: ["256GB"],
+    data: ["무제한 필요"],
+    planHold: "188일간 고가 요금제 사용 필수",
+    extraService: "부가서비스 정보 확인 필요",
     contractMonths: 24,
-    contact: "전화 상담 가능",
+    offers: [
+      {
+        carrier: "SKT",
+        label: "번호이동",
+        monthlyMax: 109000,
+        devicePrice: 670000,
+        totalPrice: 3286000,
+      },
+      {
+        carrier: "SKT",
+        label: "기기변경",
+        monthlyMax: 109000,
+        devicePrice: 1210000,
+        totalPrice: 3826000,
+      },
+      {
+        carrier: "KT",
+        label: "기기변경",
+        monthlyMax: 110000,
+        devicePrice: 0,
+        totalPrice: 2640000,
+      },
+    ],
   },
   {
-    name: "스마트링크 신촌점",
-    area: "서울 신촌",
-    monthlyMax: 100000,
-    carriers: ["SKT", "LG U+"],
-    storage: ["128GB", "256GB", "512GB", "1TB"],
-    data: ["100GB 이하", "무제한 필요"],
-    cardPolicy: "월 실적 확인 후 제휴카드 할인 가능",
-    supportsNoCard: false,
-    planHold: "고가 요금제 6개월 유지 조건",
-    extraService: "보험 1개월 포함",
+    category: "성지",
+    name: "휴대폰성지 폰통령 고산점",
+    mapUrl: "https://naver.me/Gj7FCPKv",
+    storage: ["256GB"],
+    carriers: ["SKT", "KT"],
+    data: ["무제한 필요"],
+    planHold: "10만9000원 요금제 183일 사용 후 5만원대 요금제로 변경 가능",
+    extraService: "부가서비스 가입 의무 없음",
     contractMonths: 24,
-    contact: "카드 조건 별도 설명 가능",
+    offers: [
+      {
+        carrier: "SKT",
+        label: "기기변경",
+        monthlyMax: 109000,
+        devicePrice: 980000,
+        totalPrice: 2624000,
+      },
+      {
+        carrier: "KT",
+        label: "번호이동",
+        monthlyMax: 109000,
+        devicePrice: 420000,
+        totalPrice: 2064000,
+      },
+    ],
   },
   {
-    name: "동네폰 상담센터",
-    area: "온라인 상담",
-    monthlyMax: 110000,
-    carriers: ["SKT", "KT", "LG U+", "알뜰폰"],
-    storage: ["32GB", "64GB", "128GB", "256GB"],
+    category: "성지",
+    name: "휴대폰성지 씽씽텔레콤",
+    mapUrl: "https://naver.me/5bVmVYze",
+    storage: ["256GB"],
+    carriers: ["SKT"],
+    data: ["무제한 필요"],
+    planHold: "10만원 요금제 6개월 사용 후 5만원 이상 요금제로 변경 가능",
+    extraService: "부가서비스 3개월 사용 의무",
+    contractMonths: 24,
+    offers: [
+      {
+        carrier: "SKT",
+        label: "번호이동",
+        monthlyMax: 100000,
+        devicePrice: 540000,
+        totalPrice: 2040000,
+      },
+      {
+        carrier: "SKT",
+        label: "기기변경",
+        monthlyMax: 100000,
+        devicePrice: 1180000,
+        totalPrice: 2680000,
+      },
+    ],
+  },
+  {
+    category: "성지",
+    name: "휴대폰성지 폰슐랭 의정부점",
+    mapUrl: "https://naver.me/GlJly3te",
+    storage: ["256GB"],
+    carriers: ["KT"],
+    data: ["무제한 필요"],
+    planHold: "24개월 동안 10만원 이상 요금제 유지 조건",
+    extraService: "부가서비스 가입 의무 없음",
+    contractMonths: 24,
+    offers: [
+      {
+        carrier: "KT",
+        label: "기기변경",
+        monthlyMax: 100000,
+        devicePrice: 480000,
+        totalPrice: 2880000,
+      },
+    ],
+  },
+  {
+    category: "성지",
+    name: "휴대폰성지 옆커폰 의정부민락점",
+    mapUrl: "https://naver.me/5pw1u52P",
+    carriers: ["SKT", "KT"],
+    storage: ["256GB"],
+    data: ["무제한 필요"],
+    planHold: "10만9000원 요금제 6개월 사용 후 7개월차부터 4만5000원 이상 요금제 18개월 사용",
+    extraService: "부가서비스 정보 확인 필요",
+    contractMonths: 24,
+    offers: [
+      {
+        carrier: "KT",
+        label: "기기변경",
+        monthlyMax: 109000,
+        devicePrice: 870000,
+        totalPrice: 2334000,
+      },
+      {
+        carrier: "KT",
+        label: "삼성카드 구매",
+        monthlyMax: 109000,
+        devicePrice: 370000,
+        totalPrice: 1834000,
+      },
+      {
+        carrier: "SKT",
+        label: "기기변경",
+        monthlyMax: 109000,
+        devicePrice: 1200000,
+        totalPrice: 2664000,
+      },
+    ],
+  },
+  {
+    category: "성지",
+    name: "휴대폰성지 옆커폰 의정부금오점",
+    mapUrl: "https://naver.me/F6ngN8yd",
+    carriers: ["KT"],
+    storage: ["256GB"],
+    data: ["무제한 필요"],
+    planHold: "10만원 요금제 6개월 사용 후 5만원까지 하향 가능",
+    extraService: "부가서비스 4개월 사용 의무",
+    contractMonths: 24,
+    offers: [
+      {
+        carrier: "KT",
+        label: "기기변경",
+        monthlyMax: 100000,
+        devicePrice: 1200000,
+        totalPrice: 2400000,
+      },
+    ],
+  },
+  {
+    category: "성지",
+    name: "휴대폰 성지 홈서비스 아정당 의정부 직영점",
+    mapUrl: "",
+    storage: ["256GB"],
+    carriers: ["SKT", "KT"],
+    data: ["무제한 필요"],
+    planHold: "10만9000원 요금제 6개월 후 6만원대 요금제로 변경 가능",
+    extraService: "보험과 부가서비스 선택 가능",
+    contractMonths: 24,
+    offers: [
+      {
+        carrier: "SKT",
+        label: "홈상담",
+        monthlyMax: 109000,
+        devicePrice: 450000,
+        totalPrice: 2184000,
+      },
+      {
+        carrier: "KT",
+        label: "홈상담",
+        monthlyMax: 109000,
+        devicePrice: 620000,
+        totalPrice: 2354000,
+      },
+    ],
+  },
+  {
+    category: "성지",
+    name: "휴대폰성지 망월사역점",
+    mapUrl: "",
+    storage: ["256GB"],
+    carriers: ["SKT", "KT"],
+    data: ["무제한 필요"],
+    planHold: "고가 요금제 4개월 사용 후 5만원까지 하향 가능",
+    extraService: "부가서비스 1개월 사용 의무",
+    contractMonths: 24,
+    offers: [
+      {
+        carrier: "SKT",
+        label: "기기변경",
+        monthlyMax: 99000,
+        devicePrice: 750000,
+        totalPrice: 2146000,
+      },
+      {
+        carrier: "KT",
+        label: "번호이동",
+        monthlyMax: 99000,
+        devicePrice: 300000,
+        totalPrice: 1696000,
+      },
+    ],
+  },
+  {
+    category: "알뜰폰 자급제폰",
+    name: "아정당 공식 사이트",
+    carriers: ["알뜰폰"],
+    storage: ["256GB"],
+    data: ["5GB 이하", "10GB 이하", "30GB 이하", "100GB 이하", "무제한 필요"],
+    planHold: "약정 없는 요금제 선택 가능",
+    extraService: "부가서비스 가입 의무 없음",
+    contractMonths: 24,
+    offers: [
+      {
+        carrier: "알뜰폰",
+        label: "자급제",
+        monthlyMax: 49000,
+        devicePrice: 1180000,
+        totalPrice: 2356000,
+      },
+    ],
+  },
+  {
+    category: "알뜰폰 자급제폰",
+    name: "모요",
+    carriers: ["알뜰폰"],
+    storage: ["256GB"],
+    data: ["5GB 이하", "10GB 이하", "30GB 이하", "100GB 이하", "무제한 필요"],
+    planHold: "월별 요금제 변경 가능",
+    extraService: "부가서비스 가입 의무 없음",
+    contractMonths: 24,
+    offers: [
+      {
+        carrier: "알뜰폰",
+        label: "자급제",
+        monthlyMax: 33000,
+        devicePrice: 1260000,
+        totalPrice: 2052000,
+      },
+    ],
+  },
+  {
+    category: "알뜰폰 자급제폰",
+    name: "다나와",
+    carriers: ["알뜰폰"],
+    storage: ["256GB"],
     data: ["5GB 이하", "10GB 이하", "30GB 이하", "100GB 이하"],
-    cardPolicy: "카드 발급 없이 견적 가능",
-    supportsNoCard: true,
-    planHold: "요금제 유지 기간 협의",
-    extraService: "부가서비스 선택",
-    contractMonths: 30,
-    contact: "온라인 견적 비교 가능",
+    planHold: "기계 구매 후 원하는 요금제 선택 가능",
+    extraService: "부가서비스 가입 의무 없음",
+    contractMonths: 24,
+    offers: [
+      {
+        carrier: "알뜰폰",
+        label: "자급제",
+        monthlyMax: 45000,
+        devicePrice: 1280000,
+        totalPrice: 2360000,
+      },
+    ],
   },
+  {
+    category: "알뜰폰 자급제폰",
+    name: "kt공식 온라인샵",
+    carriers: ["KT"],
+    storage: ["256GB"],
+    data: ["5GB 이하", "10GB 이하", "30GB 이하", "100GB 이하", "무제한 필요"],
+    planHold: "원하는 요금제 선택 가능",
+    extraService: "부가서비스 가입 의무 없음",
+    contractMonths: 24,
+    offers: [
+      {
+        carrier: "KT",
+        label: "기계구매",
+        monthlyMax: 69000,
+        devicePrice: 1330000,
+        totalPrice: 2986000,
+      },
+    ],
+  },
+
+
 ];
 
 const state = loadState();
@@ -81,21 +409,36 @@ const screenTitle = document.querySelector("#screenTitle");
 const headerNote = document.querySelector("#headerNote");
 const customBudgetField = document.querySelector("#customBudgetField");
 const customBudgetInput = document.querySelector("#customBudgetInput");
+const customDeviceBudgetField = document.querySelector("#customDeviceBudgetField");
+const customDeviceBudgetInput = document.querySelector("#customDeviceBudgetInput");
 const budgetTotalPreview = document.querySelector("#budgetTotalPreview");
-const modelTextInput = document.querySelector("#modelTextInput");
 const summaryBudget = document.querySelector("#summaryBudget");
+const summaryDeviceBudget = document.querySelector("#summaryDeviceBudget");
 const summaryBudgetTotal = document.querySelector("#summaryBudgetTotal");
 const summaryModels = document.querySelector("#summaryModels");
 const summaryCarriers = document.querySelector("#summaryCarriers");
 const summaryStorage = document.querySelector("#summaryStorage");
 const summaryPattern = document.querySelector("#summaryPattern");
 const summaryDataUsage = document.querySelector("#summaryDataUsage");
-const summaryCardDiscount = document.querySelector("#summaryCardDiscount");
 const summaryAvoid = document.querySelector("#summaryAvoid");
 const prevStepButton = document.querySelector("#prevStepButton");
 const nextStepButton = document.querySelector("#nextStepButton");
 const checkList = document.querySelector("#checkList");
 const storeList = document.querySelector("#storeList");
+const compareEditButton = document.querySelector("#compareEditButton");
+const compareEditCloseButton = document.querySelector("#compareEditCloseButton");
+const compareEditor = document.querySelector("#compareEditor");
+const compareCustomBudgetField = document.querySelector("#compareCustomBudgetField");
+const compareCustomBudgetInput = document.querySelector("#compareCustomBudgetInput");
+const compareCustomDeviceBudgetField = document.querySelector("#compareCustomDeviceBudgetField");
+const compareCustomDeviceBudgetInput = document.querySelector("#compareCustomDeviceBudgetInput");
+const compareSummaryCarriers = document.querySelector("#compareSummaryCarriers");
+const compareSummaryStorage = document.querySelector("#compareSummaryStorage");
+const compareSummaryDataUsage = document.querySelector("#compareSummaryDataUsage");
+const compareSummaryBudget = document.querySelector("#compareSummaryBudget");
+const compareSummaryDeviceBudget = document.querySelector("#compareSummaryDeviceBudget");
+const compareSummaryBudgetTotal = document.querySelector("#compareSummaryBudgetTotal");
+const compareSummaryAvoid = document.querySelector("#compareSummaryAvoid");
 
 document.querySelector("#startButton").addEventListener("click", () => {
   state.started = true;
@@ -144,6 +487,26 @@ document.querySelector("#goConsultNextButton").addEventListener("click", () => {
   switchTab("tab-stores");
 });
 
+compareEditButton?.addEventListener("click", () => {
+  setCompareEditorOpen(compareEditor.classList.contains("is-hidden"));
+});
+
+compareEditCloseButton?.addEventListener("click", () => {
+  setCompareEditorOpen(false);
+});
+
+compareEditor?.addEventListener("click", (event) => {
+  if (event.target === compareEditor) {
+    setCompareEditorOpen(false);
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && compareEditor && !compareEditor.classList.contains("is-hidden")) {
+    setCompareEditorOpen(false);
+  }
+});
+
 document.querySelectorAll('[data-choice-group="budget"] .choice-button').forEach((button) => {
   button.addEventListener("click", () => {
     state.budget = button.dataset.value;
@@ -151,6 +514,9 @@ document.querySelectorAll('[data-choice-group="budget"] .choice-button').forEach
     if (state.budget !== "직접 입력") {
       state.customBudget = "";
       customBudgetInput.value = "";
+      if (compareCustomBudgetInput) {
+        compareCustomBudgetInput.value = "";
+      }
     }
 
     saveState();
@@ -162,6 +528,56 @@ document.querySelectorAll('[data-choice-group="budget"] .choice-button').forEach
 customBudgetInput.addEventListener("input", () => {
   state.budget = "직접 입력";
   state.customBudget = customBudgetInput.value.trim();
+  if (compareCustomBudgetInput) {
+    compareCustomBudgetInput.value = state.customBudget;
+  }
+  saveState();
+  renderChoices();
+  updateSummary();
+});
+
+compareCustomBudgetInput?.addEventListener("input", () => {
+  state.budget = "직접 입력";
+  state.customBudget = compareCustomBudgetInput.value.trim();
+  customBudgetInput.value = state.customBudget;
+  saveState();
+  renderChoices();
+  updateSummary();
+});
+
+document.querySelectorAll('[data-choice-group="deviceBudget"] .choice-button').forEach((button) => {
+  button.addEventListener("click", () => {
+    state.deviceBudget = button.dataset.value;
+
+    if (state.deviceBudget !== "직접 입력") {
+      state.customDeviceBudget = "";
+      customDeviceBudgetInput.value = "";
+      if (compareCustomDeviceBudgetInput) {
+        compareCustomDeviceBudgetInput.value = "";
+      }
+    }
+
+    saveState();
+    renderChoices();
+    updateSummary();
+  });
+});
+
+customDeviceBudgetInput.addEventListener("input", () => {
+  state.deviceBudget = "직접 입력";
+  state.customDeviceBudget = customDeviceBudgetInput.value.trim();
+  if (compareCustomDeviceBudgetInput) {
+    compareCustomDeviceBudgetInput.value = state.customDeviceBudget;
+  }
+  saveState();
+  renderChoices();
+  updateSummary();
+});
+
+compareCustomDeviceBudgetInput?.addEventListener("input", () => {
+  state.deviceBudget = "직접 입력";
+  state.customDeviceBudget = compareCustomDeviceBudgetInput.value.trim();
+  customDeviceBudgetInput.value = state.customDeviceBudget;
   saveState();
   renderChoices();
   updateSummary();
@@ -185,15 +601,9 @@ document.querySelectorAll('[data-choice-group="dataUsage"] .choice-button').forE
   });
 });
 
-modelTextInput.addEventListener("input", () => {
-  state.modelText = modelTextInput.value.trim();
-  saveState();
-  updateSummary();
-});
-
 document.querySelectorAll('[data-choice-group="carriers"] .choice-button').forEach((button) => {
   button.addEventListener("click", () => {
-    updateMultiSelect(state.carriers, button.dataset.value, "통신사 상관없음");
+    updateMultiSelect(state.carriers, button.dataset.value, "상관없음");
     saveState();
     renderChoices();
     updateSummary();
@@ -218,15 +628,6 @@ document.querySelectorAll('[data-choice-group="avoid"] .choice-button').forEach(
   });
 });
 
-document.querySelectorAll('[data-choice-group="cardDiscount"] .choice-button').forEach((button) => {
-  button.addEventListener("click", () => {
-    state.cardDiscount = button.dataset.value;
-    saveState();
-    renderChoices();
-    updateSummary();
-  });
-});
-
 renderInitialScreen();
 renderStep();
 renderChoices();
@@ -240,12 +641,12 @@ function loadState() {
     step: 0,
     budget: "",
     customBudget: "",
-    modelText: "",
+    deviceBudget: "",
+    customDeviceBudget: "",
     carriers: [],
     storage: [],
     pattern: "",
     dataUsage: "",
-    cardDiscount: "",
     avoid: [],
   };
 
@@ -257,11 +658,11 @@ function loadState() {
       ...saved,
       step: Number.isInteger(saved?.step) ? Math.min(Math.max(saved.step, 0), lastStep) : 0,
       budget: normalizeBudget(saved?.budget),
-      modelText: typeof saved?.modelText === "string" ? saved.modelText : getLegacyModelText(saved),
-      carriers: Array.isArray(saved?.carriers) ? saved.carriers : [],
+      deviceBudget: normalizeDeviceBudget(saved?.deviceBudget),
+      customDeviceBudget: typeof saved?.customDeviceBudget === "string" ? saved.customDeviceBudget : "",
+      carriers: normalizeCarriers(saved?.carriers),
       storage: Array.isArray(saved?.storage) ? saved.storage : [],
       dataUsage: typeof saved?.dataUsage === "string" ? saved.dataUsage : "",
-      cardDiscount: typeof saved?.cardDiscount === "string" ? saved.cardDiscount : "",
       avoid: Array.isArray(saved?.avoid) ? saved.avoid : [],
     };
   } catch {
@@ -279,14 +680,43 @@ function normalizeBudget(value) {
   return budgetMap[value] || value || "";
 }
 
+function normalizeDeviceBudget(value) {
+  const deviceBudgetMap = {
+    "20만 원 이하": "50만 원 이하",
+    "120만 원 이하": "50만 원 이하",
+    "150만 원 이하": "100만 원 이하",
+    "180만 원 이하": "130만 원 이하",
+  };
+
+  return deviceBudgetMap[value] || value || "";
+}
+
+function normalizeCarriers(value) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .map((carrier) => carrier === "통신사 상관없음" ? "상관없음" : carrier)
+    .filter((carrier) => carrierOptions.includes(carrier));
+}
+
 function saveState() {
   localStorage.setItem(storageKey, JSON.stringify(state));
 }
 
-function renderInitialScreen() {
-  if (state.started) {
-    showApp();
+function setCompareEditorOpen(isOpen) {
+  if (!compareEditor) {
+    return;
   }
+
+  compareEditor.classList.toggle("is-hidden", !isOpen);
+  compareEditButton?.setAttribute("aria-expanded", String(isOpen));
+}
+
+function renderInitialScreen() {
+  onboarding.classList.remove("is-hidden");
+  appScreen.classList.add("is-hidden");
 }
 
 function showApp() {
@@ -308,8 +738,11 @@ function switchTab(targetId) {
     view.classList.toggle("is-active", view.id === targetId);
   });
 
+  const noteText = targetId === "tab-standards" ? `${state.step + 1} / ${totalSteps}` : targetView.dataset.note;
+
   screenTitle.textContent = targetView.dataset.title;
-  headerNote.textContent = targetId === "tab-standards" ? `${state.step + 1} / ${totalSteps}` : targetView.dataset.note;
+  headerNote.textContent = noteText;
+  headerNote.classList.toggle("is-hidden", !noteText);
 
   if (targetId === "tab-stores") {
     renderStores();
@@ -320,6 +753,7 @@ function showSaveComplete() {
   standardsView.classList.add("is-saved");
   saveCompleteScreen.classList.remove("is-hidden");
   headerNote.textContent = "저장 완료";
+  headerNote.classList.remove("is-hidden");
 }
 
 function showSavedCard() {
@@ -345,6 +779,7 @@ function renderStep() {
   document.querySelector(".step-actions").classList.toggle("is-first-step", state.step === 0);
   nextStepButton.classList.toggle("is-hidden", state.step === lastStep);
   headerNote.textContent = `${state.step + 1} / ${totalSteps}`;
+  headerNote.classList.remove("is-hidden");
   updateSummary();
 }
 
@@ -355,7 +790,21 @@ function renderChoices() {
 
   customBudgetField.classList.toggle("is-hidden", state.budget !== "직접 입력");
   customBudgetInput.value = state.customBudget || "";
-  modelTextInput.value = state.modelText || "";
+  compareCustomBudgetField?.classList.toggle("is-hidden", state.budget !== "직접 입력");
+  if (compareCustomBudgetInput) {
+    compareCustomBudgetInput.value = state.customBudget || "";
+  }
+
+  document.querySelectorAll('[data-choice-group="deviceBudget"] .choice-button').forEach((button) => {
+    button.classList.toggle("is-selected", button.dataset.value === state.deviceBudget);
+  });
+
+  customDeviceBudgetField.classList.toggle("is-hidden", state.deviceBudget !== "직접 입력");
+  customDeviceBudgetInput.value = state.customDeviceBudget || "";
+  compareCustomDeviceBudgetField?.classList.toggle("is-hidden", state.deviceBudget !== "직접 입력");
+  if (compareCustomDeviceBudgetInput) {
+    compareCustomDeviceBudgetInput.value = state.customDeviceBudget || "";
+  }
 
   document.querySelectorAll('[data-choice-group="pattern"] .choice-button').forEach((button) => {
     button.classList.toggle("is-selected", button.dataset.value === state.pattern);
@@ -377,22 +826,26 @@ function renderChoices() {
     button.classList.toggle("is-selected", state.avoid.includes(button.dataset.value));
   });
 
-  document.querySelectorAll('[data-choice-group="cardDiscount"] .choice-button').forEach((button) => {
-    button.classList.toggle("is-selected", button.dataset.value === state.cardDiscount);
-  });
 }
 
 function updateSummary() {
   summaryBudget.textContent = getBudgetText();
+  summaryDeviceBudget.textContent = getDeviceBudgetText();
   budgetTotalPreview.textContent = getBudgetTotalText();
   summaryBudgetTotal.textContent = getBudgetTotalText();
-  renderTextTag(summaryModels, state.modelText);
+  renderTextTag(summaryModels, fixedModelName);
   renderTags(summaryCarriers, state.carriers);
   renderTags(summaryStorage, state.storage);
   summaryPattern.textContent = state.pattern || "아직 정하지 않았어요";
   summaryDataUsage.textContent = state.dataUsage || "아직 정하지 않았어요";
-  summaryCardDiscount.textContent = state.cardDiscount || "아직 정하지 않았어요";
   renderTags(summaryAvoid, state.avoid);
+  renderTags(compareSummaryCarriers, state.carriers);
+  renderTags(compareSummaryStorage, state.storage);
+  setText(compareSummaryDataUsage, state.dataUsage || "아직 정하지 않았어요");
+  setText(compareSummaryBudget, getBudgetText());
+  setText(compareSummaryDeviceBudget, getDeviceBudgetText());
+  setText(compareSummaryBudgetTotal, getBudgetTotalText() || "아직 정하지 않았어요");
+  renderTags(compareSummaryAvoid, state.avoid);
   renderStores();
 }
 
@@ -403,55 +856,124 @@ function renderStores() {
 
   storeList.innerHTML = "";
 
-  stores.forEach((store) => {
-    const comparison = compareStore(store);
-    const card = document.createElement("article");
-    card.className = "store-card";
+  stores
+    .flatMap((store, storeIndex) => getStoreListings(store).map((listing, listingIndex) => ({
+      ...listing,
+      index: storeIndex * 10 + listingIndex,
+    })))
+    .map((listing) => ({ ...listing, comparison: compareListing(listing) }))
+    .sort((a, b) => {
+      const totalA = a.offer ? getOfferTotal(a.offer) : Number.POSITIVE_INFINITY;
+      const totalB = b.offer ? getOfferTotal(b.offer) : Number.POSITIVE_INFINITY;
+      return b.comparison.score - a.comparison.score || totalA - totalB || a.index - b.index;
+    })
+    .forEach((listing) => {
+      const { store, offer, comparison } = listing;
+      const summary = getStoreSummaryParts(listing, comparison);
+      const card = document.createElement("article");
+      card.className = "store-card";
+      card.classList.toggle("is-full-match", comparison.score === comparison.total);
+      const offerLabel = offer ? getOfferLabel(offer) : "";
 
-    const header = document.createElement("div");
-    header.className = "store-card-header";
-    header.innerHTML = `
-      <div>
-        <h2>${store.name}</h2>
-        <p>${store.area} · ${store.contact}</p>
-      </div>
-      <strong>${comparison.score}/${comparison.total}</strong>
-    `;
+      const summaryButton = document.createElement("button");
+      summaryButton.className = "store-card-summary";
+      summaryButton.type = "button";
+      summaryButton.setAttribute("aria-expanded", "false");
+      summaryButton.innerHTML = `
+          ${summary.conditionHtml}
+          <span class="store-card-name">${store.name}</span>
+          ${offerLabel ? `<span class="store-offer-label">${offerLabel}</span>` : ""}
+          <span class="summary-total-wrap">
+            <span class="summary-total">${summary.totalText}</span>
+            <span class="summary-total-note">24개월 기준 총액입니다.</span>
+          </span>
+        `;
 
-    const rows = document.createElement("div");
-    rows.className = "match-list";
+      const details = document.createElement("div");
+      details.className = "store-card-details";
 
-    comparison.rows.forEach((row) => {
-      const item = document.createElement("div");
-      item.className = `match-row ${row.ok ? "is-match" : "needs-check"}`;
-      item.innerHTML = `
-        <span>${row.ok ? "맞음" : "확인"}</span>
-        <div>
-          <strong>${row.label}</strong>
-          <p>${row.message}</p>
-        </div>
-      `;
-      rows.append(item);
+      const detailActions = document.createElement("div");
+      detailActions.className = "store-detail-actions";
+
+      const mapLink = document.createElement("a");
+      mapLink.className = "store-map-link";
+      mapLink.href = getStoreMapUrl(store);
+      mapLink.target = "_blank";
+      mapLink.rel = "noopener noreferrer";
+      mapLink.textContent = "지도";
+
+      const closeButton = document.createElement("button");
+      closeButton.className = "store-close-button";
+      closeButton.type = "button";
+      closeButton.setAttribute("aria-label", "매장 카드 닫기");
+      closeButton.textContent = "X";
+
+      const rows = document.createElement("div");
+      rows.className = "match-list";
+
+      comparison.rows.forEach((row) => {
+        const rowStatus = getRowStatus(row);
+        const item = document.createElement("div");
+        item.className = `match-row ${rowStatus.className}`;
+        item.innerHTML = `
+          <span>${rowStatus.text}</span>
+          <div>
+            <strong>${row.label}</strong>
+            <p>${row.message}</p>
+          </div>
+        `;
+        rows.append(item);
+      });
+
+      summaryButton.addEventListener("click", () => {
+        const isOpen = card.classList.toggle("is-open");
+        summaryButton.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      closeButton.addEventListener("click", () => {
+        card.classList.remove("is-open");
+        summaryButton.setAttribute("aria-expanded", "false");
+      });
+
+      detailActions.append(mapLink);
+      details.append(detailActions, rows);
+      card.append(summaryButton, closeButton, details);
+      storeList.append(card);
     });
-
-    const note = document.createElement("p");
-    note.className = "store-note";
-    note.textContent = `${store.planHold} · ${store.extraService}`;
-
-    card.append(header, rows, note);
-    storeList.append(card);
-  });
 }
 
-function compareStore(store) {
+function getRowStatus(row) {
+  if (row.status === "needs-review") {
+    return {
+      className: "needs-review",
+      text: "확인 요함",
+    };
+  }
+
+  return {
+    className: row.ok ? "is-match" : "needs-check",
+    text: row.ok ? "일치" : "불일치",
+  };
+}
+
+function getStoreListings(store) {
+  const offers = getCarrierOffers(store);
+
+  if (!offers.length) {
+    return [{ store, offer: null }];
+  }
+
+  return offers.map((offer) => ({ store, offer }));
+}
+
+function compareListing(listing) {
+  const store = listing.store;
   const rows = [
-    compareBudget(store),
-    compareCarriers(store),
+    compareBudget(listing),
+    compareCarriers(listing),
     compareStorage(store),
     compareData(store),
-    compareCardPolicy(store),
     compareAvoidRules(store),
-    compareContractMonths(store),
   ];
   const score = rows.filter((row) => row.ok).length;
 
@@ -462,26 +984,133 @@ function compareStore(store) {
   };
 }
 
-function compareBudget(store) {
-  const budget = getBudgetMonthlyValue();
+function getStoreTotalText(listing) {
+  if (!listing.offer) {
+    return "가격 확인 필요";
+  }
 
-  if (!budget) {
+  return `${formatNumber(getOfferTotal(listing.offer))}원`;
+}
+
+function getStoreMapUrl(store) {
+  return store.mapUrl || `https://map.naver.com/p/search/${encodeURIComponent(store.name)}`;
+}
+
+function getStoreSummaryParts(listing, comparison) {
+  const mismatches = comparison.rows.filter((row) => !row.ok).map((row) => row.label);
+  const totalText = getStoreTotalText(listing);
+
+  if (!mismatches.length) {
     return {
-      label: "예산",
-      ok: false,
-      message: `이 매장은 월 ${formatNumber(store.monthlyMax)}원 이하 조건을 안내할 수 있습니다.`,
+      conditionHtml: '<span class="summary-condition is-match">모두 일치</span>',
+      totalText,
+    };
+  }
+
+  const conditionClass = getConditionClass(mismatches[0]);
+
+  if (mismatches.length === 1) {
+    return {
+      conditionHtml: `<span class="summary-condition ${conditionClass}">${mismatches[0]} 불일치</span>`,
+      totalText,
     };
   }
 
   return {
-    label: "예산",
-    ok: store.monthlyMax <= budget,
-    message: `매장 제안 기준: 월 ${formatNumber(store.monthlyMax)}원 이하`,
+    conditionHtml: `<span class="summary-condition ${conditionClass}">${mismatches[0]} 외 ${mismatches.length - 1}개 불일치</span>`,
+    totalText,
   };
 }
 
-function compareCarriers(store) {
-  if (!state.carriers.length || state.carriers.includes("통신사 상관없음")) {
+function getConditionClass(label) {
+  const classMap = {
+    예산: "is-budget",
+    통신사: "is-carrier",
+    용량: "is-storage",
+    데이터: "is-data",
+    "피하고 싶은 조건": "is-avoid",
+  };
+
+  return classMap[label] || "is-avoid";
+}
+
+function compareBudget(listing) {
+  const monthlyBudget = getBudgetMonthlyValue();
+  const deviceBudget = getDeviceBudgetValue();
+  const offer = listing.offer;
+
+  if (!offer) {
+    return {
+      label: "예산",
+      ok: false,
+      message: "가격 정보 확인 필요",
+    };
+  }
+
+  if (!monthlyBudget && !deviceBudget) {
+    return {
+      label: "예산",
+      ok: false,
+      message: formatOffer(offer),
+    };
+  }
+
+  const monthlyOk = !monthlyBudget || offer.monthlyMax <= monthlyBudget;
+  const deviceOk = !deviceBudget || offer.devicePrice <= deviceBudget;
+
+  return {
+    label: "예산",
+    ok: monthlyOk && deviceOk,
+    message: formatOffer(offer),
+  };
+}
+
+function getCarrierOffers(store) {
+  return Array.isArray(store.offers) ? store.offers : [];
+}
+
+function getOfferTotal(offer) {
+  return Number.isFinite(offer.totalPrice) ? offer.totalPrice : offer.monthlyMax * 24 + offer.devicePrice;
+}
+
+function formatOffer(offer) {
+  return `${getOfferLabel(offer)} 월 ${formatNumber(offer.monthlyMax)}원 기기 ${formatNumber(offer.devicePrice)}원 총 ${formatNumber(getOfferTotal(offer))}원`;
+}
+
+function getOfferLabel(offer) {
+  const label = offer.label ? ` ${offer.label}` : "";
+  return `${offer.carrier}${label}`;
+}
+
+function compareCarriers(listing) {
+  const store = listing.store;
+  const offer = listing.offer;
+
+  if (offer) {
+    if (!state.carriers.length || state.carriers.includes("상관없음")) {
+      return {
+        label: "통신사",
+        ok: true,
+        message: `${offer.carrier} 조건`,
+      };
+    }
+
+    return {
+      label: "통신사",
+      ok: state.carriers.includes(offer.carrier),
+      message: `${offer.carrier} 조건`,
+    };
+  }
+
+  if (!store.carriers.length) {
+    return {
+      label: "통신사",
+      ok: false,
+      message: "통신사 정보 확인 필요",
+    };
+  }
+
+  if (!state.carriers.length || state.carriers.includes("상관없음")) {
     return {
       label: "통신사",
       ok: true,
@@ -499,6 +1128,14 @@ function compareCarriers(store) {
 }
 
 function compareStorage(store) {
+  if (!store.storage.length) {
+    return {
+      label: "용량",
+      ok: false,
+      message: "용량 정보 확인 필요",
+    };
+  }
+
   if (!state.storage.length || state.storage.includes("용량 상관없음")) {
     return {
       label: "용량",
@@ -517,6 +1154,22 @@ function compareStorage(store) {
 }
 
 function compareData(store) {
+  if (store.category === "성지") {
+    return {
+      label: "데이터",
+      ok: true,
+      message: "초기 10만원 이상 요금제 유지 기간에는 무제한 사용 가능, 이후 5만원에서 6만원대 요금제로 조정 예상",
+    };
+  }
+
+  if (!store.data.length) {
+    return {
+      label: "데이터",
+      ok: false,
+      message: "요금제 데이터 정보 확인 필요",
+    };
+  }
+
   if (!state.dataUsage || state.dataUsage === "잘 모르겠음") {
     return {
       label: "데이터",
@@ -532,49 +1185,46 @@ function compareData(store) {
   };
 }
 
-function compareCardPolicy(store) {
-  if (!state.cardDiscount || state.cardDiscount === "잘 모르겠음") {
-    return {
-      label: "제휴카드",
-      ok: true,
-      message: store.cardPolicy,
-    };
-  }
-
-  if (state.cardDiscount === "제휴카드 없이 안내받고 싶음" || state.cardDiscount === "카드 발급은 원하지 않음") {
-    return {
-      label: "제휴카드",
-      ok: store.supportsNoCard,
-      message: store.cardPolicy,
-    };
-  }
-
-  return {
-    label: "제휴카드",
-    ok: true,
-    message: store.cardPolicy,
-  };
-}
-
 function compareAvoidRules(store) {
   const avoidExpensivePlan = state.avoid.includes("비싼 요금제를 오래 유지하는 조건");
   const avoidExtras = state.avoid.includes("부가서비스 가입 조건");
+  const planHold = store.planHold || "";
+  const extraService = store.extraService || "";
+
+  if (!planHold && !extraService) {
+    return {
+      label: "피하고 싶은 조건",
+      ok: false,
+      message: "유지 조건과 부가서비스 정보 확인 필요",
+    };
+  }
 
   if (!avoidExpensivePlan && !avoidExtras) {
     return {
       label: "피하고 싶은 조건",
       ok: true,
-      message: `${store.planHold}, ${store.extraService}`,
+      message: [planHold, extraService].filter(Boolean).join(", "),
     };
   }
 
-  const planOk = !avoidExpensivePlan || !store.planHold.includes("6개월");
-  const extraOk = !avoidExtras || !store.extraService.includes("포함");
+  const hasExpensivePlanHold = planHold.includes("고가 요금제") || planHold.includes("비싼 요금제") || planHold.includes("10만");
+  const canLowerPlanLater = (planHold.includes("후") || planHold.includes("이후")) && (planHold.includes("하향") || planHold.includes("변경"));
+  const hasLimitedHighPlanPeriod = /(\d+일|\d+개월|몇\s*일)/.test(planHold);
+  const requiresHighPlanForFullTerm = planHold.includes("24개월") && hasExpensivePlanHold && !canLowerPlanLater;
+  const hasNoExtraService = extraService.includes("없음");
+  const needsExtraServiceCheck = extraService.includes("정보 확인 필요");
+  const hasRequiredExtraService = extraService.includes("포함") || extraService.includes("의무");
+  const planNeedsReview = avoidExpensivePlan && hasExpensivePlanHold && (canLowerPlanLater || hasLimitedHighPlanPeriod) && !requiresHighPlanForFullTerm;
+  const planOk = !avoidExpensivePlan || !hasExpensivePlanHold || planNeedsReview;
+  const extraOk = !avoidExtras || (hasNoExtraService ? true : !needsExtraServiceCheck && !hasRequiredExtraService);
 
   return {
     label: "피하고 싶은 조건",
     ok: planOk && extraOk,
-    message: `${store.planHold}, ${store.extraService}`,
+    status: planNeedsReview && extraOk ? "needs-review" : "",
+    message: planNeedsReview && extraOk
+      ? `${[planHold, extraService].filter(Boolean).join(", ")}. 24개월 전체 고가 요금제 조건은 아니므로 유지 기간과 변경 가능 시점을 확인하세요.`
+      : [planHold, extraService].filter(Boolean).join(", "),
   };
 }
 
@@ -606,14 +1256,27 @@ function getBudgetText() {
   return state.budget;
 }
 
-function getBudgetTotalText() {
-  const monthlyBudget = getBudgetMonthlyValue();
-
-  if (!monthlyBudget) {
-    return "선택하면 자동으로 계산됩니다";
+function getDeviceBudgetText() {
+  if (!state.deviceBudget) {
+    return "아직 정하지 않았어요";
   }
 
-  return `${formatNumber(monthlyBudget * 24)}원`;
+  if (state.deviceBudget === "직접 입력") {
+    return state.customDeviceBudget ? `${formatNumber(Number(state.customDeviceBudget))}원 이하` : "아직 정하지 않았어요";
+  }
+
+  return state.deviceBudget;
+}
+
+function getBudgetTotalText() {
+  const monthlyBudget = getBudgetMonthlyValue();
+  const deviceBudget = getDeviceBudgetValue();
+
+  if (!monthlyBudget || !deviceBudget) {
+    return "";
+  }
+
+  return `${formatNumber(monthlyBudget * 24 + deviceBudget)}원`;
 }
 
 function getBudgetMonthlyValue() {
@@ -635,6 +1298,27 @@ function getBudgetMonthlyValue() {
 
   if (state.budget === "직접 입력") {
     const parsed = Number(state.customBudget);
+    return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+  }
+
+  return null;
+}
+
+function getDeviceBudgetValue() {
+  if (state.deviceBudget === "50만 원 이하") {
+    return 500000;
+  }
+
+  if (state.deviceBudget === "100만 원 이하") {
+    return 1000000;
+  }
+
+  if (state.deviceBudget === "130만 원 이하") {
+    return 1300000;
+  }
+
+  if (state.deviceBudget === "직접 입력") {
+    const parsed = Number(state.customDeviceBudget);
     return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
   }
 
@@ -664,6 +1348,10 @@ function updateMultiSelect(list, value, exclusiveValue = "") {
 }
 
 function renderTags(container, values) {
+  if (!container) {
+    return;
+  }
+
   container.innerHTML = "";
 
   if (!values.length) {
@@ -682,6 +1370,10 @@ function renderTags(container, values) {
 }
 
 function renderTextTag(container, value) {
+  if (!container) {
+    return;
+  }
+
   container.innerHTML = "";
 
   if (!value) {
@@ -699,7 +1391,19 @@ function renderTextTag(container, value) {
   });
 }
 
+function setText(element, value) {
+  if (!element) {
+    return;
+  }
+
+  element.textContent = value;
+}
+
 function renderChecklist() {
+  if (!checkList) {
+    return;
+  }
+
   const saved = loadChecklist();
   checkList.innerHTML = "";
 

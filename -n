@@ -1,0 +1,16 @@
+script.js:const summaryAvoid = document.querySelector("#summaryAvoid");
+script.js:document.querySelectorAll('[data-choice-group="avoid"] .choice-button').forEach((button) => {
+script.js:  document.querySelectorAll('[data-choice-group="avoid"] .choice-button').forEach((button) => {
+script.js:  renderTags(summaryAvoid, state.avoid);
+script.js:    compareAvoidRules(store),
+script.js:function compareAvoidRules(store) {
+script.js:      label: "피하고 싶은 조건",
+script.js:    label: "피하고 싶은 조건",
+index.html:            <p class="step-label">예산 설정</p>
+index.html:            <p class="step-label">원하는 기종과 용량</p>
+index.html:            <p class="step-label">사용 패턴</p>
+index.html:            <div class="choice-list" data-choice-group="avoid">
+index.html:            <p class="step-label">총정리</p>
+index.html:                <span>피하고 싶은 조건</span>
+index.html:                <div class="tag-list" id="summaryAvoid"></div>
+index.html:            <p class="step-label">저장 완료</p>
