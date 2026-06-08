@@ -1166,6 +1166,148 @@ textarea:focus {
   }
 }
 
+@media (min-width: 900px) {
+  body {
+    padding: 0;
+  }
+
+  .phone-shell {
+    width: 100%;
+    min-height: 100vh;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  .onboarding,
+  .app-screen {
+    min-height: 100vh;
+  }
+
+  .onboarding {
+    width: min(100%, 1180px);
+    margin: 0 auto;
+    padding: 88px 56px;
+  }
+
+  .title-onboarding {
+    align-items: flex-start;
+    gap: 34px;
+    padding-top: clamp(112px, 18vh, 190px);
+    padding-bottom: 64px;
+  }
+
+  .title-onboarding .onboarding-copy h1 {
+    max-width: 11em;
+    font-size: 56px;
+    line-height: 1.12;
+  }
+
+  .start-button {
+    width: 280px;
+  }
+
+  .app-screen {
+    width: min(100%, 1180px);
+    margin: 0 auto;
+    padding: 38px 56px 48px;
+  }
+
+  .app-header {
+    min-height: 74px;
+    padding-right: 320px;
+    padding-bottom: 24px;
+  }
+
+  .app-header h1 {
+    font-size: 30px;
+  }
+
+  .content-panel {
+    padding: 28px;
+  }
+
+  .content-panel h2 {
+    font-size: 22px;
+  }
+
+  .choice-list {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .compact-list {
+    grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  }
+
+  .choice-button {
+    min-height: 54px;
+  }
+
+  .request-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .request-footer {
+    grid-column: 1 / -1;
+  }
+
+  .compare-request-card {
+    padding: 18px;
+  }
+
+  .compare-summary-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .compare-editor-sheet {
+    width: min(100%, 760px);
+    max-height: min(82vh, 760px);
+  }
+
+  .compare-editor-body {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    padding: 18px;
+  }
+
+  .compare-editor-body .choice-block:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .store-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .store-card-summary {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .store-card-name {
+    font-size: 18px;
+  }
+
+  .bottom-tabs {
+    left: auto;
+    right: max(40px, calc((100vw - 1180px) / 2 + 56px));
+    bottom: auto;
+    top: 38px;
+    width: 260px;
+    padding: 6px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 12px 28px rgba(28, 42, 56, 0.08);
+    transform: none;
+  }
+
+  .tab-button {
+    min-height: 46px;
+    border-radius: 13px;
+  }
+}
+
 @media (max-width: 360px) {
   .app-screen {
     padding-right: 14px;
