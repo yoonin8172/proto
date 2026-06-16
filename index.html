@@ -4,364 +4,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>나에게 맞게 갤럭시 25 울트라 가장 싸게 사는 방법</title>
+  <meta name="description" content="의정부 갤럭시 S26 울트라 판매 조건 비교" />
+  <title>의정부에서 갤럭시 S26 울트라 비교하기</title>
   <link rel="icon" type="image/svg+xml" href="./public/images/favicon.svg" />
   <link rel="stylesheet" href="./src/style.css" />
 </head>
 
 <body>
-  <main class="phone-shell" aria-label="갤럭시25 울트라 구매 가이드">
-    <section class="onboarding title-onboarding" id="onboarding">
-      <div class="onboarding-copy">
-        <h1>나에게 맞게<br><span>갤럭시 25 울트라</span> 가장 싸게 사는 방법</h1>
+  <main class="page-shell">
+    <header class="hero">
+      <h1>의정부에서<br><strong>갤럭시 S26 울트라</strong><br>가장 싸게 사기</h1>
+    </header>
+
+    <section class="filter-panel" aria-label="판매 조건 필터">
+      <div class="filter-group filter-group-storage">
+        <span class="filter-label">용량</span>
+        <div class="filter-options" data-filter="storage">
+          <button class="filter-button is-selected" type="button" data-value="전체" aria-pressed="true">전체</button>
+          <button class="filter-button" type="button" data-value="256GB" aria-pressed="false">256GB</button>
+          <button class="filter-button" type="button" data-value="512GB" aria-pressed="false">512GB</button>
+        </div>
       </div>
-      <button class="primary-button start-button" id="startButton" type="button">시작하기</button>
+
+      <div class="filter-group">
+        <span class="filter-label">통신사</span>
+        <div class="filter-options" data-filter="carrier">
+          <button class="filter-button is-selected" type="button" data-value="전체" aria-pressed="true">전체</button>
+          <button class="filter-button" type="button" data-value="KT" aria-pressed="false">KT</button>
+          <button class="filter-button" type="button" data-value="SKT" aria-pressed="false">SKT</button>
+        </div>
+      </div>
     </section>
 
-    <section class="app-screen is-hidden" id="appScreen">
-      <header class="app-header">
-        <div>
-          <p class="eyebrow">폰체크</p>
-          <h1 id="screenTitle">구매 카드 만들기</h1>
-        </div>
-        <p class="header-note" id="headerNote">1 / 5</p>
-      </header>
-
-      <div class="tab-view is-active" id="tab-standards" data-title="내 기준" data-note="1 / 5">
-
-
-        <div class="step-dots" aria-label="내 기준 진행 단계">
-          <span class="is-active"></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-
-        <section class="step-page is-active" data-step="0">
-          <div class="content-panel is-open">
-
-            <div class="choice-block">
-              <h3>통신사 선택</h3>
-              <div class="choice-list compact-list" data-choice-group="carriers">
-                <button type="button" class="choice-button" data-value="SKT">SKT</button>
-                <button type="button" class="choice-button" data-value="KT">KT</button>
-                <button type="button" class="choice-button" data-value="알뜰폰">알뜰폰</button>
-                <button type="button" class="choice-button" data-value="상관없음">상관없음</button>
-              </div>
-            </div>
-            <div class="choice-block">
-              <h3>원하는 용량</h3>
-              <div class="choice-list compact-list" data-choice-group="storage">
-                <button type="button" class="choice-button" data-value="256GB">256GB</button>
-                <button type="button" class="choice-button" data-value="512GB">512GB</button>
-                <button type="button" class="choice-button" data-value="1TB">1TB</button>
-                <button type="button" class="choice-button" data-value="용량 상관없음">용량 상관없음</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="step-page" data-step="1">
-          <div class="content-panel is-open">
-            <h2>피하고 싶은 조건</h2>
-            <div class="choice-list" data-choice-group="avoid">
-              <button type="button" class="choice-button" data-value="비싼 요금제를 오래 유지하는 조건">비싼 요금제를 오래 유지하는 조건</button>
-              <button type="button" class="choice-button" data-value="부가서비스 가입 조건">부가서비스 가입 조건</button>
-              <button type="button" class="choice-button" data-value="오늘 바로 계약해야 하는 조건">오늘 바로 계약해야 하는 조건</button>
-              <button type="button" class="choice-button" data-value="설명이 복잡한 할부 조건">설명이 복잡한 할부 조건</button>
-              <button type="button" class="choice-button" data-value="잘 모르겠음">잘 모르겠음</button>
-            </div>
-          </div>
-        </section>
-
-        <section class="step-page" data-step="2">
-          <div class="content-panel is-open">
-            <p class="step-label">사용 패턴</p>
-
-            <div class="choice-block usage-block">
-              <h3>월 데이터 평균 사용량</h3>
-              <div class="choice-list compact-list" data-choice-group="dataUsage">
-                <button type="button" class="choice-button" data-value="5GB 이하">5GB 이하</button>
-                <button type="button" class="choice-button" data-value="10GB 이하">10GB 이하</button>
-                <button type="button" class="choice-button" data-value="30GB 이하">30GB 이하</button>
-                <button type="button" class="choice-button" data-value="100GB 이하">100GB 이하</button>
-                <button type="button" class="choice-button" data-value="무제한 필요">무제한 필요</button>
-                <button type="button" class="choice-button" data-value="잘 모르겠음">잘 모르겠음</button>
-              </div>
-            </div>
-            <div class="choice-block usage-block">
-              <h3>주로 어떻게 사용하나요?</h3>
-              <div class="choice-list" data-choice-group="pattern">
-                <button type="button" class="choice-button" data-value="연락과 메신저 위주">연락과 메신저 위주</button>
-                <button type="button" class="choice-button" data-value="사진과 영상 촬영이 많음">사진과 영상 촬영이 많음</button>
-                <button type="button" class="choice-button" data-value="게임을 자주 함">게임을 자주 함</button>
-                <button type="button" class="choice-button" data-value="잘 모르겠음">잘 모르겠음</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="step-page" data-step="3">
-          <div class="content-panel is-open">
-            <p class="step-label">예산 설정</p>
-            <h2>24개월 기준으로 한 달에 얼마까지 부담할 수 있나요?</h2>
-            <p class="panel-note">🚨 월 납부 가능 금액은 요금제, 보험과 부가서비스 비용을 포함한 기준입니다.</p>
-            <div class="choice-list" data-choice-group="budget">
-              <button type="button" class="choice-button" data-value="3~5만 원">3~5만 원</button>
-              <button type="button" class="choice-button" data-value="6~8만 원">6~8만 원</button>
-              <button type="button" class="choice-button" data-value="9~10만 원">9~10만 원</button>
-              <button type="button" class="choice-button" data-value="11만 원 이상">11만 원 이상</button>
-              <button type="button" class="choice-button" data-value="직접 입력">직접 입력</button>
-            </div>
-            <label class="field-group is-hidden" id="customBudgetField">
-              <span>직접 입력 금액</span>
-              <div class="input-with-unit">
-                <input id="customBudgetInput" type="number" min="0" inputmode="numeric" placeholder="예: 85000" />
-                <span>원 이하</span>
-              </div>
-            </label>
-            <div class="choice-block budget-device-block">
-              <h3>기기값은 얼마까지 부담할 수 있나요?</h3>
-              <div class="choice-list compact-list" data-choice-group="deviceBudget">
-                <button type="button" class="choice-button" data-value="50만 원 이하">50만 원 이하</button>
-                <button type="button" class="choice-button" data-value="100만 원 이하">100만 원 이하</button>
-                <button type="button" class="choice-button" data-value="130만 원 이하">130만 원 이하</button>
-                <button type="button" class="choice-button" data-value="직접 입력">직접 입력</button>
-              </div>
-            </div>
-            <label class="field-group is-hidden" id="customDeviceBudgetField">
-              <span>직접 입력 기기값</span>
-              <div class="input-with-unit">
-                <input id="customDeviceBudgetInput" type="number" min="0" inputmode="numeric"
-                  placeholder="예: 1599400" />
-                <span>원 이하</span>
-              </div>
-            </label>
-            <div class="budget-total-box" id="budgetTotalBox">
-              <span>총 금액</span>
-              <strong id="budgetTotalPreview"></strong>
-              <p>월 납부 가능 금액 24개월분과 기기값을 더한 기준입니다.</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="step-page" data-step="4">
-          <div class="content-panel is-open">
-            <p class="step-label">총정리</p>
-            <h2>고객님의 구매 조건</h2>
-            <article class="request-card" aria-label="조건 카드">
-              <div class="request-section">
-                <span>기종</span>
-                <div class="tag-list" id="summaryModels"></div>
-              </div>
-
-              <div class="request-section">
-                <span>통신사</span>
-                <div class="tag-list" id="summaryCarriers"></div>
-              </div>
-
-              <div class="request-section">
-                <span>원하는 용량</span>
-                <div class="tag-list" id="summaryStorage"></div>
-              </div>
-
-              <div class="request-section">
-                <span>피하고 싶은 조건</span>
-                <div class="tag-list" id="summaryAvoid"></div>
-              </div>
-
-              <div class="request-section">
-                <span>사용 패턴</span>
-                <strong id="summaryPattern">아직 정하지 않았어요</strong>
-              </div>
-
-              <div class="request-section">
-                <span>월 데이터 평균 사용량</span>
-                <strong id="summaryDataUsage">아직 정하지 않았어요</strong>
-              </div>
-
-              <div class="request-section">
-                <span>월 납부 가능 금액</span>
-                <strong id="summaryBudget">아직 정하지 않았어요</strong>
-                <p>요금제, 보험과 부가서비스 비용을 포함한 기준입니다.</p>
-              </div>
-
-              <div class="request-section">
-                <span>기기값</span>
-                <strong id="summaryDeviceBudget">아직 정하지 않았어요</strong>
-              </div>
-
-              <div class="request-section">
-                <span>총 금액</span>
-                <strong id="summaryBudgetTotal">아직 정하지 않았어요</strong>
-              </div>
-
-              <div class="request-footer">
-                <strong>오늘 바로 계약하지 않아도 됩니다.</strong>
-                <p>조건이 맞는 업체와만 상담을 이어가면 됩니다.</p>
-              </div>
-            </article>
-            <button class="primary-button compact" id="goConsultButton" type="button">저장하기</button>
-          </div>
-        </section>
-
-        <div class="step-actions">
-          <button class="secondary-button" id="prevStepButton" type="button">이전</button>
-          <button class="primary-button" id="nextStepButton" type="button">다음</button>
-        </div>
-
-        <section class="save-complete is-hidden" id="saveCompleteScreen">
-          <div class="content-panel is-open">
-            <p class="step-label">저장 완료</p>
-            <h2>저장되었습니다!</h2>
-            <p class="panel-note">이제 조건에 맞는 매장을 비교해볼까요?</p>
-            <button class="primary-button compact" id="goConsultNextButton" type="button">다음</button>
-          </div>
-        </section>
+    <section class="results-section" aria-label="판매 조건 목록" aria-live="polite">
+      <div class="results-heading">
+        <strong class="result-count" id="resultCount"></strong>
       </div>
 
-      <div class="tab-view" id="tab-stores" data-title="카드비교" data-note="">
-        <section class="compare-dashboard" aria-label="내 카드와 매장 카드 비교">
-          <article class="compare-request-card">
-            <div class="compare-request-head">
-              <span class="request-badge">내 카드</span>
-              <button class="inline-edit-button" id="compareEditButton" type="button"
-                aria-expanded="false">수정하기</button>
-            </div>
-            <h2>갤럭시25 울트라</h2>
-            <div class="compare-summary-grid">
-              <div>
-                <span>통신사</span>
-                <div class="tag-list" id="compareSummaryCarriers"></div>
-              </div>
-              <div>
-                <span>용량</span>
-                <div class="tag-list" id="compareSummaryStorage"></div>
-              </div>
-              <div>
-                <span>데이터</span>
-                <strong id="compareSummaryDataUsage">아직 정하지 않았어요</strong>
-              </div>
-              <div>
-                <span>월 납부</span>
-                <strong id="compareSummaryBudget">아직 정하지 않았어요</strong>
-              </div>
-              <div>
-                <span>기기값</span>
-                <strong id="compareSummaryDeviceBudget">아직 정하지 않았어요</strong>
-              </div>
-              <div>
-                <span>총 금액</span>
-                <strong id="compareSummaryBudgetTotal">아직 정하지 않았어요</strong>
-              </div>
-            </div>
-            <div class="compare-avoid-row">
-              <span>피하고 싶은 조건</span>
-              <div class="tag-list" id="compareSummaryAvoid"></div>
-            </div>
-          </article>
-
-          <section class="compare-editor-overlay is-hidden" id="compareEditor" role="dialog" aria-modal="true"
-            aria-label="내 카드 수정">
-            <div class="compare-editor-sheet">
-              <div class="compare-editor-head">
-                <strong>내 카드 수정</strong>
-                <button class="sheet-close-button" id="compareEditCloseButton" type="button"
-                  aria-label="내 카드 수정 닫기">X</button>
-              </div>
-              <div class="compare-editor-body">
-                <div class="choice-block">
-                  <h3>통신사</h3>
-                  <div class="choice-list compact-list" data-choice-group="carriers">
-                    <button type="button" class="choice-button" data-value="SKT">SKT</button>
-                    <button type="button" class="choice-button" data-value="KT">KT</button>
-                    <button type="button" class="choice-button" data-value="알뜰폰">알뜰폰</button>
-                    <button type="button" class="choice-button" data-value="상관없음">상관없음</button>
-                  </div>
-                </div>
-                <div class="choice-block">
-                  <h3>용량</h3>
-                  <div class="choice-list compact-list" data-choice-group="storage">
-                    <button type="button" class="choice-button" data-value="256GB">256GB</button>
-                    <button type="button" class="choice-button" data-value="512GB">512GB</button>
-                    <button type="button" class="choice-button" data-value="1TB">1TB</button>
-                    <button type="button" class="choice-button" data-value="용량 상관없음">용량 상관없음</button>
-                  </div>
-                </div>
-                <div class="choice-block">
-                  <h3>데이터</h3>
-                  <div class="choice-list compact-list" data-choice-group="dataUsage">
-                    <button type="button" class="choice-button" data-value="5GB 이하">5GB 이하</button>
-                    <button type="button" class="choice-button" data-value="10GB 이하">10GB 이하</button>
-                    <button type="button" class="choice-button" data-value="30GB 이하">30GB 이하</button>
-                    <button type="button" class="choice-button" data-value="100GB 이하">100GB 이하</button>
-                    <button type="button" class="choice-button" data-value="무제한 필요">무제한 필요</button>
-                    <button type="button" class="choice-button" data-value="잘 모르겠음">잘 모르겠음</button>
-                  </div>
-                </div>
-                <div class="choice-block">
-                  <h3>월 납부</h3>
-                  <div class="choice-list compact-list" data-choice-group="budget">
-                    <button type="button" class="choice-button" data-value="3~5만 원">3~5만 원</button>
-                    <button type="button" class="choice-button" data-value="6~8만 원">6~8만 원</button>
-                    <button type="button" class="choice-button" data-value="9~10만 원">9~10만 원</button>
-                    <button type="button" class="choice-button" data-value="11만 원 이상">11만 원 이상</button>
-                    <button type="button" class="choice-button" data-value="직접 입력">직접 입력</button>
-                  </div>
-                  <label class="field-group is-hidden" id="compareCustomBudgetField">
-                    <span>직접 입력 금액</span>
-                    <div class="input-with-unit">
-                      <input id="compareCustomBudgetInput" type="number" min="0" inputmode="numeric"
-                        placeholder="예: 85000" />
-                      <span>원 이하</span>
-                    </div>
-                  </label>
-                </div>
-                <div class="choice-block">
-                  <h3>기기값</h3>
-                  <div class="choice-list compact-list" data-choice-group="deviceBudget">
-                    <button type="button" class="choice-button" data-value="50만 원 이하">50만 원 이하</button>
-                    <button type="button" class="choice-button" data-value="100만 원 이하">100만 원 이하</button>
-                    <button type="button" class="choice-button" data-value="130만 원 이하">130만 원 이하</button>
-                    <button type="button" class="choice-button" data-value="직접 입력">직접 입력</button>
-                  </div>
-                  <label class="field-group is-hidden" id="compareCustomDeviceBudgetField">
-                    <span>직접 입력 기기값</span>
-                    <div class="input-with-unit">
-                      <input id="compareCustomDeviceBudgetInput" type="number" min="0" inputmode="numeric"
-                        placeholder="예: 1000000" />
-                      <span>원 이하</span>
-                    </div>
-                  </label>
-                </div>
-                <div class="choice-block">
-                  <h3>피하고 싶은 조건</h3>
-                  <div class="choice-list" data-choice-group="avoid">
-                    <button type="button" class="choice-button" data-value="비싼 요금제를 오래 유지하는 조건">비싼 요금제를 오래 유지하는
-                      조건</button>
-                    <button type="button" class="choice-button" data-value="부가서비스 가입 조건">부가서비스 가입 조건</button>
-                    <button type="button" class="choice-button" data-value="오늘 바로 계약해야 하는 조건">오늘 바로 계약해야 하는 조건</button>
-                    <button type="button" class="choice-button" data-value="설명이 복잡한 할부 조건">설명이 복잡한 할부 조건</button>
-                    <button type="button" class="choice-button" data-value="잘 모르겠음">잘 모르겠음</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        </section>
-        <div class="store-list" id="storeList"></div>
-      </div>
-
-      <nav class="bottom-tabs" aria-label="주요 메뉴">
-        <button class="tab-button is-active" type="button" data-tab-target="tab-standards">
-          <span>내 기준</span>
-        </button>
-        <button class="tab-button" type="button" data-tab-target="tab-stores">
-          <span>카드비교</span>
-        </button>
-      </nav>
+      <div class="store-list" id="storeList"></div>
+      <p class="empty-message is-hidden" id="emptyMessage">선택한 용량과 통신사에 해당하는 판매 조건이 없습니다.</p>
     </section>
+
+    <footer class="page-footer">
+      <p>표시 금액은 등록된 판매 조건을 기준으로 계산한 24개월 예상 총액입니다.</p>
+      <p>계약 전 요금제 유지 기간, 부가서비스, 할부 조건과 실제 재고를 판매처에 확인해 주세요.</p>
+    </footer>
   </main>
 
   <script type="module" src="./src/main.js"></script>
