@@ -1,5 +1,3 @@
-const defaultCurrentMonthlyFee = 27000;
-
 const stores = [
   {
     category: "직영점",
@@ -154,8 +152,8 @@ const stores = [
 ];
 
 const state = {
-  currentCarrier: "SKT",
-  currentMonthlyFee: defaultCurrentMonthlyFee,
+  currentCarrier: "",
+  currentMonthlyFee: null,
   storage: "전체",
 };
 
@@ -163,6 +161,8 @@ const storeList = document.querySelector("#storeList");
 const resultCount = document.querySelector("#resultCount");
 const emptyMessage = document.querySelector("#emptyMessage");
 const currentFeeInput = document.querySelector("#currentFeeInput");
+const feeSaveButton = document.querySelector("#feeSaveButton");
+const sortIndicator = document.querySelector("#sortIndicator");
 let animationTimer;
 
 document.querySelectorAll("[data-filter] .filter-button").forEach((button) => {
@@ -175,9 +175,13 @@ document.querySelectorAll("[data-filter] .filter-button").forEach((button) => {
 });
 
 currentFeeInput.addEventListener("input", () => {
-  const parsedValue = Number(currentFeeInput.value.replace(/[^\d]/g, ""));
-  state.currentMonthlyFee = Number.isFinite(parsedValue) && parsedValue > 0 ? parsedValue : 0;
+  feeSaveButton.classList.remove("is-pressed");
+});
+
+feeSaveButton.addEventListener("click", () => {
+  updateCurrentMonthlyFee();
   renderStores(true);
+  showSavePressedState();
 });
 
 storeList.addEventListener("click", (event) => {
@@ -218,6 +222,17 @@ function createOffer(carrier, label, storage, monthlyMax, devicePrice, totalPric
   };
 }
 
+function updateCurrentMonthlyFee() {
+  const parsedValue = Number(currentFeeInput.value.replace(/[^\d]/g, ""));
+  state.currentMonthlyFee = Number.isFinite(parsedValue) && parsedValue > 0 ? parsedValue : null;
+}
+
+function showSavePressedState() {
+  feeSaveButton.classList.remove("is-pressed");
+  void feeSaveButton.offsetWidth;
+  feeSaveButton.classList.add("is-pressed");
+}
+
 function renderFilters() {
   document.querySelectorAll("[data-filter] .filter-button").forEach((button) => {
     const filterName = button.closest("[data-filter]").dataset.filter;
@@ -232,6 +247,8 @@ function renderStores(shouldAnimate = false) {
 
   storeList.replaceChildren();
   resultCount.textContent = `${listings.length}개 조건`;
+  sortIndicator.textContent = hasPersonalPriceInfo() ? "↓↑ 사실상 구매가 낮은 순" : "↓↑ 예상 총액 낮은 순";
+  emptyMessage.textContent = "선택한 조건에 해당하는 판매 조건이 없습니다.";
   emptyMessage.classList.toggle("is-hidden", listings.length > 0);
 
   listings.forEach((listing) => {
@@ -257,10 +274,21 @@ function getFilteredListings() {
       sourceIndex: storeIndex * 100 + offerIndex,
     })))
     .filter(({ offer }) => state.storage === "전체" || offer.storage === state.storage)
-    .filter(({ offer }) => isOfferAvailableByCurrentCarrier(offer))
+    .filter(({ offer }) => !state.currentCarrier || isOfferAvailableByCurrentCarrier(offer))
     .sort((a, b) => {
-      return getPersonalPurchasePrice(a.offer) - getPersonalPurchasePrice(b.offer) || a.sourceIndex - b.sourceIndex;
+      const priceA = hasPersonalPriceInfo() ? getPersonalPurchasePrice(a.offer) : getOfferTotal(a.offer);
+      const priceB = hasPersonalPriceInfo() ? getPersonalPurchasePrice(b.offer) : getOfferTotal(b.offer);
+
+      return priceA - priceB || a.sourceIndex - b.sourceIndex;
     });
+}
+
+function hasCurrentFee() {
+  return Number.isFinite(state.currentMonthlyFee) && state.currentMonthlyFee > 0;
+}
+
+function hasPersonalPriceInfo() {
+  return Boolean(state.currentCarrier) && hasCurrentFee();
 }
 
 function createStoreItem({ store, offer }) {
@@ -279,7 +307,23 @@ function createStoreItem({ store, offer }) {
 
   const total = getOfferTotal(offer);
   const communicationCost = Math.max(0, total - offer.devicePrice);
-  const personalPurchasePrice = getPersonalPurchasePrice(offer);
+  const personalPurchasePrice = hasPersonalPriceInfo() ? getPersonalPurchasePrice(offer) : null;
+  const personalPriceMarkup = hasPersonalPriceInfo()
+    ? `
+    <div class="personal-price">
+      <div class="personal-price-title">
+        <strong>사실상 ${formatNumber(personalPurchasePrice)}원에 사는 것과 비슷해요</strong>
+        <span class="price-info">
+          <button class="info-button" type="button" aria-label="사실상 구매가 계산 설명 열기" aria-expanded="false">i</button>
+          <span class="info-tooltip" role="status">
+            현재 지불하고 있는 통신비의 가격을 예상 총액에서 빼면 핸드폰을 구매한 후 새롭게 부담하게 되는 실질 구매가를 알 수 있어요.
+          </span>
+        </span>
+      </div>
+      <span>= 예상 총액 - 현재 통신비 × 24개월</span>
+    </div>
+  `
+    : "";
   const priceBox = document.createElement("div");
   priceBox.className = "price-box";
   priceBox.innerHTML = `
@@ -290,25 +334,14 @@ function createStoreItem({ store, offer }) {
       </div>
       <div>
         <span>통신비</span>
-        <strong>${formatNumber(communicationCost)}원</strong>
+        <strong>${formatNumber(communicationCost)}원 <em>(24개월)</em></strong>
       </div>
     </div>
     <div class="price-total">
-      <strong>${formatNumber(total)}원</strong>
       <span>예상 총액</span>
+      <strong>${formatNumber(total)}원</strong>
     </div>
-    <div class="personal-price">
-      <div class="personal-price-title">
-        <strong>실질 구매가 ${formatManwon(personalPurchasePrice)}만원</strong>
-        <span class="price-info">
-          <button class="info-button" type="button" aria-label="실질 구매가 계산 설명 열기" aria-expanded="false">i</button>
-          <span class="info-tooltip" role="status">
-            현재 지불하고 있는 통신비의 가격을 예상 총액에서 빼면 핸드폰을 구매한 후 새롭게 지불하게 되는 실질 구매가를 알 수 있어요.
-          </span>
-        </span>
-      </div>
-      <span>= 예상 총액 - 현재 통신비 × 24개월</span>
-    </div>
+    ${personalPriceMarkup}
   `;
 
   copy.append(name);
@@ -382,12 +415,16 @@ function isOfferAvailableByCurrentCarrier(offer) {
 }
 
 function getRequiredSignupType(offer) {
+  if (!state.currentCarrier) {
+    return "";
+  }
+
   return offer.carrier === state.currentCarrier ? "기기변경" : "번호이동";
 }
 
 function getDisplaySignupLabel(offer) {
   const signupType = getRequiredSignupType(offer);
-  const labels = [signupType];
+  const labels = signupType ? [signupType] : [offer.label];
 
   if (offer.label.includes("제휴카드 구매")) {
     labels.push("제휴카드 구매");
@@ -409,8 +446,4 @@ function getStoreMapUrl(store) {
 
 function formatNumber(value) {
   return new Intl.NumberFormat("ko-KR").format(value);
-}
-
-function formatManwon(value) {
-  return formatNumber(Math.round(value / 10000));
 }

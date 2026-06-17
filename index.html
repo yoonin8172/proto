@@ -13,23 +13,32 @@
 <body>
   <main class="page-shell">
     <header class="hero">
-      <h1>의정부에서<br><strong>갤럭시 S26 울트라</strong><br>가장 싸게 사기</h1>
+      <h1>의정부에서<br><strong>갤럭시 S26 울트라</strong><br>제일 싸게 사기</h1>
     </header>
 
     <section class="intro-message" aria-label="서비스 안내">
       <strong>
-        <span>꽁꽁 숨겨진 갤럭시 울트라 26 가격 정보,</span>
-        <span class="intro-mobile-line">직접 발로 뛰어 조사했습니다.</span>
+        <span>정말 싼 휴대폰은,</span>
+        <span class="intro-mobile-line">계산해 봐야 알 수 있습니다.</span>
       </strong>
-      <p>현재 내고 있는 통신비와 매장별 조건을 함께 비교해서 실제로 얼마에 사는 것과 비슷한지 확인하세요!</p>
+      <p>매장에서는 모두 최저가라고 말합니다.<br>하지만 하지만 기존에 지불하고 있는 통신비와 매장별 디테일한 구매 조건을 따져보면 실제 부담 금액은 달라질 수 있습니다.<br></p>
+
+
+      <strong>
+        <span>더 이상</span>
+        <span class="intro-mobile-line">바가지 쓸 수 없으니까.</span>
+      </strong>
+      <p>5월부터 한 달 동안 직접 수집하고 검수한 40개 이상의 가격 정보를 바탕으로<br>갤럭시 울트라 26 구매 조건을 한눈에 비교할 수 있는 서비스를 만들었습니다.</p>
+      <p>현재 내고 있는 통신비와 매장별 조건을 함께 비교해 보며, 나에게 정말 유리한 구매 방식이 무엇인지 확인해 보세요.</p>
     </section>
 
     <section class="filter-panel" aria-label="판매 조건 필터">
       <div class="filter-section">
+        <p class="filter-helper">정보를 입력하면 구매가가 계산됩니다.</p>
         <div class="filter-group">
           <span class="filter-label">현재 통신사</span>
           <div class="filter-options is-four" data-filter="currentCarrier">
-            <button class="filter-button is-selected" type="button" data-value="SKT" aria-pressed="true">SKT</button>
+            <button class="filter-button" type="button" data-value="SKT" aria-pressed="false">SKT</button>
             <button class="filter-button" type="button" data-value="KT" aria-pressed="false">KT</button>
             <button class="filter-button" type="button" data-value="알뜰폰" aria-pressed="false">LG</button>
           </div>
@@ -37,10 +46,11 @@
         <label class="filter-group fee-group">
           <span class="filter-label">현재 통신비</span>
           <div class="fee-input-wrap">
-            <input id="currentFeeInput" type="text" inputmode="numeric" pattern="[0-9]*" value="27000"
+            <input id="currentFeeInput" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="통신비 입력"
               aria-label="현재 한 달 통신비" />
             <span>원 / 월</span>
           </div>
+          <button class="fee-save-button" id="feeSaveButton" type="button">저장</button>
         </label>
       </div>
 
@@ -59,16 +69,22 @@
     <section class="results-section" aria-label="판매 조건 목록" aria-live="polite">
       <div class="results-heading">
         <strong class="result-count" id="resultCount"></strong>
-        <span class="sort-indicator" aria-label="현재 정렬 기준">↓↑ 실질 구매가 낮은 순</span>
+        <span class="sort-indicator" id="sortIndicator" aria-label="현재 정렬 기준">↓↑ 예상 총액 낮은 순</span>
       </div>
 
       <div class="store-list" id="storeList"></div>
-      <p class="empty-message is-hidden" id="emptyMessage">현재 통신사와 선택한 용량에 해당하는 판매 조건이 없습니다.</p>
+      <p class="empty-message is-hidden" id="emptyMessage">현재 통신사와 현재 통신비를 입력하면 사실상 구매가를 계산해드려요.</p>
     </section>
 
     <footer class="page-footer">
-      <p>표시 금액은 등록된 판매 조건을 기준으로 계산한 24개월 예상 총액입니다.</p>
-      <p>계약 전 요금제 유지 기간, 부가서비스, 할부 조건과 실제 재고를 판매처에 확인해 주세요.</p>
+      <div class="footer-notice">
+        <p>표시 금액은 등록된 판매 조건을 기준으로 계산한 24개월 예상 총액입니다.</p>
+        <p>계약 전 요금제 유지 기간, 부가서비스, 할부 조건과 실제 재고를 판매처에 확인해 주세요.</p>
+      </div>
+      <div class="footer-meta">
+        <p>제작 배윤아</p>
+        <p>가격정보 업데이트 : 2026. 06. 17. 7:09 PM</p>
+      </div>
     </footer>
   </main>
 
