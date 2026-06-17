@@ -1,3 +1,5 @@
+const defaultCurrentMonthlyFee = 27000;
+
 const stores = [
   {
     category: "직영점",
@@ -152,13 +154,15 @@ const stores = [
 ];
 
 const state = {
+  currentCarrier: "SKT",
+  currentMonthlyFee: defaultCurrentMonthlyFee,
   storage: "전체",
-  carrier: "전체",
 };
 
 const storeList = document.querySelector("#storeList");
 const resultCount = document.querySelector("#resultCount");
 const emptyMessage = document.querySelector("#emptyMessage");
+const currentFeeInput = document.querySelector("#currentFeeInput");
 let animationTimer;
 
 document.querySelectorAll("[data-filter] .filter-button").forEach((button) => {
@@ -168,6 +172,34 @@ document.querySelectorAll("[data-filter] .filter-button").forEach((button) => {
     renderFilters();
     renderStores(true);
   });
+});
+
+currentFeeInput.addEventListener("input", () => {
+  const parsedValue = Number(currentFeeInput.value.replace(/[^\d]/g, ""));
+  state.currentMonthlyFee = Number.isFinite(parsedValue) && parsedValue > 0 ? parsedValue : 0;
+  renderStores(true);
+});
+
+storeList.addEventListener("click", (event) => {
+  const infoButton = event.target.closest(".info-button");
+
+  if (!infoButton) {
+    return;
+  }
+
+  event.stopPropagation();
+  const infoBox = infoButton.closest(".price-info");
+  const isOpen = infoBox.classList.contains("is-open");
+
+  closeInfoTooltips();
+  infoBox.classList.toggle("is-open", !isOpen);
+  infoButton.setAttribute("aria-expanded", String(!isOpen));
+});
+
+document.addEventListener("click", (event) => {
+  if (!event.target.closest(".price-info")) {
+    closeInfoTooltips();
+  }
 });
 
 renderFilters();
@@ -225,9 +257,9 @@ function getFilteredListings() {
       sourceIndex: storeIndex * 100 + offerIndex,
     })))
     .filter(({ offer }) => state.storage === "전체" || offer.storage === state.storage)
-    .filter(({ offer }) => state.carrier === "전체" || offer.carrier === state.carrier)
+    .filter(({ offer }) => isOfferAvailableByCurrentCarrier(offer))
     .sort((a, b) => {
-      return getOfferTotal(a.offer) - getOfferTotal(b.offer) || a.sourceIndex - b.sourceIndex;
+      return getPersonalPurchasePrice(a.offer) - getPersonalPurchasePrice(b.offer) || a.sourceIndex - b.sourceIndex;
     });
 }
 
@@ -245,11 +277,38 @@ function createStoreItem({ store, offer }) {
   name.className = "store-name";
   name.textContent = store.name;
 
+  const total = getOfferTotal(offer);
+  const communicationCost = Math.max(0, total - offer.devicePrice);
+  const personalPurchasePrice = getPersonalPurchasePrice(offer);
   const priceBox = document.createElement("div");
   priceBox.className = "price-box";
   priceBox.innerHTML = `
-    <strong class="total-price">${formatNumber(getOfferTotal(offer))}원</strong>
-    <span class="price-label">24개월 예상 총액</span>
+    <div class="price-parts">
+      <div>
+        <span>기기값</span>
+        <strong>${formatNumber(offer.devicePrice)}원</strong>
+      </div>
+      <div>
+        <span>통신비</span>
+        <strong>${formatNumber(communicationCost)}원</strong>
+      </div>
+    </div>
+    <div class="price-total">
+      <strong>${formatNumber(total)}원</strong>
+      <span>예상 총액</span>
+    </div>
+    <div class="personal-price">
+      <div class="personal-price-title">
+        <strong>실질 구매가 ${formatManwon(personalPurchasePrice)}만원</strong>
+        <span class="price-info">
+          <button class="info-button" type="button" aria-label="실질 구매가 계산 설명 열기" aria-expanded="false">i</button>
+          <span class="info-tooltip" role="status">
+            현재 지불하고 있는 통신비의 가격을 예상 총액에서 빼면 핸드폰을 구매한 후 새롭게 지불하게 되는 실질 구매가를 알 수 있어요.
+          </span>
+        </span>
+      </div>
+      <span>= 예상 총액 - 현재 통신비 × 24개월</span>
+    </div>
   `;
 
   copy.append(name);
@@ -268,26 +327,16 @@ function createDetails(store, offer) {
   grid.className = "detail-grid";
   grid.append(
     createDetailCell("통신사", offer.carrier),
-    createDetailCell("가입 조건", offer.label),
+    createDetailCell("가입 조건", getDisplaySignupLabel(offer)),
     createDetailCell("약정 기간", `${store.contractMonths}개월`),
     createDetailCell("가능 용량", offer.storage),
     createDetailCell("요금제 유지", offer.planHold || "판매처 확인 필요"),
     createDetailCell("부가서비스", offer.extraService || "판매처 확인 필요")
   );
 
-  const total = getOfferTotal(offer);
-  const communicationCost = Math.max(0, total - offer.devicePrice);
-  const breakdown = document.createElement("div");
-  breakdown.className = "price-breakdown";
-  breakdown.innerHTML = `
-    <p class="breakdown-title">총액 구성</p>
-    <p class="breakdown-formula">
-      <span>${formatNumber(offer.devicePrice)}원(기기값)</span>
-      <span>+ ${formatNumber(communicationCost)}원(통신비)</span>
-    </p>
-    <p class="breakdown-total">= 총 ${formatNumber(total)}원</p>
-    <p class="breakdown-note">통신비는 보험 및 부가서비스를 제외한 24개월 기준 가격입니다. 실제 청구액은 요금제 변경 시점과 계약 조건에 따라 달라질 수 있습니다.</p>
-  `;
+  const priceNote = document.createElement("p");
+  priceNote.className = "price-note";
+  priceNote.textContent = "통신비는 보험 및 부가서비스를 제외한 24개월 기준 가격입니다. 실제 청구액은 요금제 변경 시점과 계약 조건에 따라 달라질 수 있습니다.";
 
   const actions = document.createElement("div");
   actions.className = "store-actions";
@@ -300,7 +349,7 @@ function createDetails(store, offer) {
   mapLink.textContent = "네이버 지도로 보기";
   actions.append(mapLink);
 
-  details.append(grid, breakdown, actions);
+  details.append(grid, priceNote, actions);
   return details;
 }
 
@@ -324,10 +373,44 @@ function getOfferTotal(offer) {
     : offer.monthlyMax * 24 + offer.devicePrice;
 }
 
+function getPersonalPurchasePrice(offer) {
+  return Math.max(0, getOfferTotal(offer) - state.currentMonthlyFee * 24);
+}
+
+function isOfferAvailableByCurrentCarrier(offer) {
+  return offer.label.includes(getRequiredSignupType(offer));
+}
+
+function getRequiredSignupType(offer) {
+  return offer.carrier === state.currentCarrier ? "기기변경" : "번호이동";
+}
+
+function getDisplaySignupLabel(offer) {
+  const signupType = getRequiredSignupType(offer);
+  const labels = [signupType];
+
+  if (offer.label.includes("제휴카드 구매")) {
+    labels.push("제휴카드 구매");
+  }
+
+  return labels.join(" · ");
+}
+
+function closeInfoTooltips() {
+  document.querySelectorAll(".price-info.is-open").forEach((infoBox) => {
+    infoBox.classList.remove("is-open");
+    infoBox.querySelector(".info-button")?.setAttribute("aria-expanded", "false");
+  });
+}
+
 function getStoreMapUrl(store) {
   return store.mapUrl || `https://map.naver.com/p/search/${encodeURIComponent(store.name)}`;
 }
 
 function formatNumber(value) {
   return new Intl.NumberFormat("ko-KR").format(value);
+}
+
+function formatManwon(value) {
+  return formatNumber(Math.round(value / 10000));
 }

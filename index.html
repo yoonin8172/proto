@@ -16,22 +16,42 @@
       <h1>의정부에서<br><strong>갤럭시 S26 울트라</strong><br>가장 싸게 사기</h1>
     </header>
 
+    <section class="intro-message" aria-label="서비스 안내">
+      <strong>
+        <span>꽁꽁 숨겨진 갤럭시 울트라 26 가격 정보,</span>
+        <span class="intro-mobile-line">직접 발로 뛰어 조사했습니다.</span>
+      </strong>
+      <p>현재 내고 있는 통신비와 매장별 조건을 함께 비교해서 실제로 얼마에 사는 것과 비슷한지 확인하세요!</p>
+    </section>
+
     <section class="filter-panel" aria-label="판매 조건 필터">
-      <div class="filter-group filter-group-storage">
-        <span class="filter-label">용량</span>
-        <div class="filter-options" data-filter="storage">
-          <button class="filter-button is-selected" type="button" data-value="전체" aria-pressed="true">전체</button>
-          <button class="filter-button" type="button" data-value="256GB" aria-pressed="false">256GB</button>
-          <button class="filter-button" type="button" data-value="512GB" aria-pressed="false">512GB</button>
+      <div class="filter-section">
+        <div class="filter-group">
+          <span class="filter-label">현재 통신사</span>
+          <div class="filter-options is-four" data-filter="currentCarrier">
+            <button class="filter-button is-selected" type="button" data-value="SKT" aria-pressed="true">SKT</button>
+            <button class="filter-button" type="button" data-value="KT" aria-pressed="false">KT</button>
+            <button class="filter-button" type="button" data-value="알뜰폰" aria-pressed="false">LG</button>
+          </div>
         </div>
+        <label class="filter-group fee-group">
+          <span class="filter-label">현재 통신비</span>
+          <div class="fee-input-wrap">
+            <input id="currentFeeInput" type="text" inputmode="numeric" pattern="[0-9]*" value="27000"
+              aria-label="현재 한 달 통신비" />
+            <span>원 / 월</span>
+          </div>
+        </label>
       </div>
 
-      <div class="filter-group">
-        <span class="filter-label">통신사</span>
-        <div class="filter-options" data-filter="carrier">
-          <button class="filter-button is-selected" type="button" data-value="전체" aria-pressed="true">전체</button>
-          <button class="filter-button" type="button" data-value="KT" aria-pressed="false">KT</button>
-          <button class="filter-button" type="button" data-value="SKT" aria-pressed="false">SKT</button>
+      <div class="filter-section">
+        <div class="filter-group filter-group-storage">
+          <span class="filter-label">원하는 용량</span>
+          <div class="filter-options" data-filter="storage">
+            <button class="filter-button is-selected" type="button" data-value="전체" aria-pressed="true">전체</button>
+            <button class="filter-button" type="button" data-value="256GB" aria-pressed="false">256GB</button>
+            <button class="filter-button" type="button" data-value="512GB" aria-pressed="false">512GB</button>
+          </div>
         </div>
       </div>
     </section>
@@ -39,10 +59,11 @@
     <section class="results-section" aria-label="판매 조건 목록" aria-live="polite">
       <div class="results-heading">
         <strong class="result-count" id="resultCount"></strong>
+        <span class="sort-indicator" aria-label="현재 정렬 기준">↓↑ 실질 구매가 낮은 순</span>
       </div>
 
       <div class="store-list" id="storeList"></div>
-      <p class="empty-message is-hidden" id="emptyMessage">선택한 용량과 통신사에 해당하는 판매 조건이 없습니다.</p>
+      <p class="empty-message is-hidden" id="emptyMessage">현재 통신사와 선택한 용량에 해당하는 판매 조건이 없습니다.</p>
     </section>
 
     <footer class="page-footer">
