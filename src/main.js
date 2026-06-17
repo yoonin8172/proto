@@ -247,7 +247,7 @@ function renderStores(shouldAnimate = false) {
 
   storeList.replaceChildren();
   resultCount.textContent = `${listings.length}개 조건`;
-  sortIndicator.textContent = hasPersonalPriceInfo() ? "↓↑ 사실상 구매가 낮은 순" : "↓↑ 예상 총액 낮은 순";
+  sortIndicator.textContent = hasPersonalPriceInfo() ? "↓↑ 실제 부담 비용 낮은 순" : "↓↑ 예상 총액 낮은 순";
   emptyMessage.textContent = "선택한 조건에 해당하는 판매 조건이 없습니다.";
   emptyMessage.classList.toggle("is-hidden", listings.length > 0);
 
@@ -312,11 +312,11 @@ function createStoreItem({ store, offer }) {
     ? `
     <div class="personal-price">
       <div class="personal-price-title">
-        <strong>사실상 ${formatNumber(personalPurchasePrice)}원에 사는 것과 비슷해요</strong>
+        <strong>실제 부담 비용은 ${formatNumber(personalPurchasePrice)}원에 가까워요</strong>
         <span class="price-info">
           <button class="info-button" type="button" aria-label="사실상 구매가 계산 설명 열기" aria-expanded="false">i</button>
           <span class="info-tooltip" role="status">
-            현재 지불하고 있는 통신비의 가격을 예상 총액에서 빼면 핸드폰을 구매한 후 새롭게 부담하게 되는 실질 구매가를 알 수 있어요.
+            현재 지불하고 있는 통신비의 가격을 예상 총액에서 빼면 핸드폰을 구매한 후 새롭게 부담하게 되는 실질 부담 비용을 알 수 있어요.
           </span>
         </span>
       </div>
