@@ -316,7 +316,7 @@ function createStoreItem({ store, offer }) {
         <span class="price-info">
           <button class="info-button" type="button" aria-label="사실상 구매가 계산 설명 열기" aria-expanded="false">i</button>
           <span class="info-tooltip" role="status">
-            현재 지불하고 있는 통신비의 가격을 예상 총액에서 빼면 핸드폰을 구매한 후 새롭게 부담하게 되는 실질 부담 비용을 알 수 있어요.
+            현재 지불하고 있는 통신비의 가격을 예상 총액에서 빼면 핸드폰을 구매한 후 새롭게 부담하게 되는 실질적인 비용을 알 수 있어요.
           </span>
         </span>
       </div>
