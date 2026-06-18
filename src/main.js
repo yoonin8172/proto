@@ -163,7 +163,12 @@ const emptyMessage = document.querySelector("#emptyMessage");
 const currentFeeInput = document.querySelector("#currentFeeInput");
 const feeSaveButton = document.querySelector("#feeSaveButton");
 const sortIndicator = document.querySelector("#sortIndicator");
+const firstCarrierButton = document.querySelector('[data-filter="currentCarrier"] .filter-button');
+const validationModal = document.querySelector("#validationModal");
+const validationModalMessage = document.querySelector("#validationModalMessage");
+const validationConfirmButton = document.querySelector("#validationConfirmButton");
 let animationTimer;
+let validationFocusTarget = null;
 
 document.querySelectorAll("[data-filter] .filter-button").forEach((button) => {
   button.addEventListener("click", () => {
@@ -180,6 +185,13 @@ currentFeeInput.addEventListener("input", () => {
 
 feeSaveButton.addEventListener("click", () => {
   updateCurrentMonthlyFee();
+  const validationMessage = getPersonalPriceValidationMessage();
+
+  if (validationMessage) {
+    showValidationModal(validationMessage, getPersonalPriceValidationFocusTarget());
+    return;
+  }
+
   renderStores(true);
   showSavePressedState();
 });
@@ -203,6 +215,20 @@ storeList.addEventListener("click", (event) => {
 document.addEventListener("click", (event) => {
   if (!event.target.closest(".price-info")) {
     closeInfoTooltips();
+  }
+});
+
+validationConfirmButton.addEventListener("click", closeValidationModal);
+
+validationModal.addEventListener("click", (event) => {
+  if (event.target === validationModal) {
+    closeValidationModal();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !validationModal.classList.contains("is-hidden")) {
+    closeValidationModal();
   }
 });
 
@@ -289,6 +315,37 @@ function hasCurrentFee() {
 
 function hasPersonalPriceInfo() {
   return Boolean(state.currentCarrier) && hasCurrentFee();
+}
+
+function getPersonalPriceValidationMessage() {
+  const hasCarrier = Boolean(state.currentCarrier);
+  const hasFee = hasCurrentFee();
+
+  if (!hasCarrier && !hasFee) {
+    return "현재 통신사와 현재 통신비를 모두 입력해 주세요.";
+  }
+
+  if (!hasCarrier) {
+    return "현재 통신사를 선택해 주세요.";
+  }
+
+  if (!hasFee) {
+    return "현재 통신비를 입력해 주세요.";
+  }
+
+  return "";
+}
+
+function getPersonalPriceValidationFocusTarget() {
+  if (!state.currentCarrier) {
+    return firstCarrierButton;
+  }
+
+  if (!hasCurrentFee()) {
+    return currentFeeInput;
+  }
+
+  return feeSaveButton;
 }
 
 function createStoreItem({ store, offer }) {
@@ -438,6 +495,23 @@ function closeInfoTooltips() {
     infoBox.classList.remove("is-open");
     infoBox.querySelector(".info-button")?.setAttribute("aria-expanded", "false");
   });
+}
+
+function showValidationModal(message, focusTarget) {
+  validationFocusTarget = focusTarget;
+  validationModalMessage.textContent = message;
+  validationModal.classList.remove("is-hidden");
+  validationModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("is-modal-open");
+  validationConfirmButton.focus();
+}
+
+function closeValidationModal() {
+  validationModal.classList.add("is-hidden");
+  validationModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("is-modal-open");
+  validationFocusTarget?.focus();
+  validationFocusTarget = null;
 }
 
 function getStoreMapUrl(store) {

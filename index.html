@@ -33,7 +33,7 @@
     </section>
 
     <section class="filter-panel" aria-label="판매 조건 필터">
-      <div class="filter-section">
+      <div class="filter-section filter-section-info">
         <p class="filter-helper">내 정보를 모두 입력하면 실제 부담 비용이 계산됩니다.</p>
         <div class="filter-group">
           <span class="filter-label">현재 통신사</span>
@@ -50,18 +50,16 @@
               aria-label="현재 한 달 통신비" />
             <span>원 / 월</span>
           </div>
-          <button class="fee-save-button" id="feeSaveButton" type="button">저장</button>
+          <button class="fee-save-button" id="feeSaveButton" type="button">실제 비용 계산하기</button>
         </label>
       </div>
 
-      <div class="filter-section">
-        <div class="filter-group filter-group-storage">
-          <span class="filter-label">원하는 용량</span>
-          <div class="filter-options" data-filter="storage">
-            <button class="filter-button is-selected" type="button" data-value="전체" aria-pressed="true">전체</button>
-            <button class="filter-button" type="button" data-value="256GB" aria-pressed="false">256GB</button>
-            <button class="filter-button" type="button" data-value="512GB" aria-pressed="false">512GB</button>
-          </div>
+      <div class="filter-section filter-section-storage">
+        <p class="filter-helper">원하는 용량</p>
+        <div class="filter-options storage-options" data-filter="storage" aria-label="원하는 용량">
+          <button class="filter-button is-selected" type="button" data-value="전체" aria-pressed="true">전체</button>
+          <button class="filter-button" type="button" data-value="256GB" aria-pressed="false">256GB</button>
+          <button class="filter-button" type="button" data-value="512GB" aria-pressed="false">512GB</button>
         </div>
       </div>
     </section>
@@ -87,6 +85,15 @@
       </div>
     </footer>
   </main>
+
+  <div class="validation-modal is-hidden" id="validationModal" role="dialog" aria-modal="true"
+    aria-labelledby="validationModalTitle" aria-describedby="validationModalMessage" aria-hidden="true">
+    <div class="validation-card">
+      <strong id="validationModalTitle">입력 확인</strong>
+      <p id="validationModalMessage"></p>
+      <button class="validation-confirm-button" id="validationConfirmButton" type="button">확인</button>
+    </div>
+  </div>
 
   <script type="module" src="./src/main.js"></script>
 </body>
